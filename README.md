@@ -20,7 +20,9 @@ Para desligar: `docker-compose down`. Para apagar dados: `docker-compose down -v
 
 ## Credenciais (ajuste no `.env`)
 
-- PostgreSQL (RDS): defina `POSTGRES_HOST`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
+- PostgreSQL (RDS): defina `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`
+- Bancos usados no RDS: `N8N_POSTGRES_DB` (padrão `n8n`) e `EVOLUTION_POSTGRES_DB` (padrão `evolution`)
+- O serviço `db-init` cria esses bancos automaticamente no start (usuário precisa permissão de `CREATEDB` no RDS)
 - Redis: `redis123`
 - Evolution API Key: `evolution_api_key_12345`
 

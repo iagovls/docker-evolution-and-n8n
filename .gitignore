@@ -1,2 +1,7 @@
 .env
 ec2-user-data.sh
+user-data.sh
+/Fotos Imoveis/
+/dify config/
+/imoveis/
+data.json

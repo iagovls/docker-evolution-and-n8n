@@ -1,0 +1,15 @@
+{
+    "action":"calendar.create",
+    "calendar":"primary",
+    "timeZone":"America/Sao_Paulo",
+    "summary":"Visita - IMV-0001 - Iago",
+    "description":"Cliente: Iago Vitor Lima Silva. Telefone: {TELEFONE}. Observações: Visita ao apartamento em Ilhéus.",
+    "location":"Ilhéus-BA - Hernani Sá - IMV-0001",
+    "start":"2026-04-11T09:00:00-03:00",
+    "end":"2026-04-11T10:00:00-03:00",
+    "attendees":[{"email":"{EMAIL}"}],
+    "metadata":{
+        "propertyId":"IMV-0001",
+        "channel":"WhatsApp",
+        "leadId":"{LEAD_ID}"}
+    }

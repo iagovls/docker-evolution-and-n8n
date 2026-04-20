@@ -1,0 +1,122 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "16ddc08e-65f7-44c7-8668-364c7c8ae899",
+      "name": "When chat message received",
+      "webhookId": "5dfa059d-ddc5-46aa-9031-f0548c40863a"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "038ae452-682f-4190-a97b-1e7a52f34fd3",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        208
+      ],
+      "id": "73b2abc6-ddbd-42b7-bc5e-75825f9b1a0b",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "VFTzn0cS4fnTGtnh",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        224,
+        208
+      ],
+      "id": "d4841d94-a9a3-4158-8523-8945832a81a8",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "SAXsVOH1ulCHlo7J",
+          "name": "Redis account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5f94ff21-531f-44c5-ab5d-fce73edb8ab8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "66a923c39af08e6a2fac794865f040d0f958c1e77e2bd749780b6d78b46973d3"
+  },
+  "id": "kGP8TT6Zvt9mYuwa",
+  "tags": []
+}
