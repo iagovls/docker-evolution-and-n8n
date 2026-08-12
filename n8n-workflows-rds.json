@@ -1,0 +1,1664 @@
+[
+  {
+    "updatedAt": "2026-05-09T02:35:54.772Z",
+    "createdAt": "2026-04-20T16:08:16.900Z",
+    "id": "BDw5deeCLao2mFtk",
+    "name": "My workflow",
+    "description": null,
+    "active": true,
+    "isArchived": false,
+    "nodes": [
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "9bf18b4a-61f9-4544-8302-a48a936ef737",
+                "name": "number",
+                "value": "={{ $json.body.data.key.remoteJidAlt.split(\"@\")[0] }}",
+                "type": "string"
+              },
+              {
+                "id": "7dc8fd11-daf1-440c-ae1f-7cfaea07db86",
+                "name": "name",
+                "value": "={{ $json.body.data.pushName }}",
+                "type": "string"
+              },
+              {
+                "id": "46073cc0-43a6-4d0d-9443-0a8afdcdc391",
+                "name": "message",
+                "value": "={{ $json.body.data.message.conversation }}",
+                "type": "string"
+              },
+              {
+                "id": "2fbfbaae-104e-474f-8d7e-16c493aafd8f",
+                "name": "body.data.messageType",
+                "value": "={{ $json.body.data.messageType }}",
+                "type": "string"
+              },
+              {
+                "id": "29a79b7f-82d2-4e59-b110-7cf655090072",
+                "name": "body.data.message.base64",
+                "value": "={{ $json.body.data.message.base64 }}",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          -496,
+          608
+        ],
+        "id": "64969498-6ec3-4b6d-9a0e-2cdb126fbc74",
+        "name": "Norm"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "baca9bb2-d890-449f-a6cc-bbed8063cdd6",
+                "leftValue": "={{ $('Norm').item.json.number }}",
+                "rightValue": "557391189800",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              },
+              {
+                "id": "f24cb484-1a2f-4560-bc0c-6cf1a51145df",
+                "leftValue": "={{ $('Webhook').item.json.body.data.key.fromMe }}",
+                "rightValue": false,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          720,
+          608
+        ],
+        "id": "4c05664b-1940-40b7-9498-8cd3f5e1857d",
+        "name": "If"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          1008,
+          752
+        ],
+        "id": "f637c810-b26f-4a5d-85a3-60f36137ba94",
+        "name": "No Operation, do nothing"
+      },
+      {
+        "parameters": {
+          "operation": "select",
+          "schema": {
+            "__rl": true,
+            "mode": "list",
+            "value": "public"
+          },
+          "table": {
+            "__rl": true,
+            "value": "usuarios",
+            "mode": "list",
+            "cachedResultName": "usuarios"
+          },
+          "where": {
+            "values": [
+              {
+                "column": "telefone",
+                "value": "={{ $('Norm').item.json.number }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          1008,
+          496
+        ],
+        "id": "c50a1822-e38a-419e-b562-e98e76895bc6",
+        "name": "Select rows from a table",
+        "alwaysOutputData": true,
+        "credentials": {
+          "postgres": {
+            "id": "ybwPnymNctGG4PI6",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "dd700455-ccda-4f1a-80fa-f02c75c50d33",
+                "leftValue": "={{ $json.telefone }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "exists",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          1216,
+          496
+        ],
+        "id": "b2b3e918-057d-4d92-8b7d-5e25eadfd812",
+        "name": "If1"
+      },
+      {
+        "parameters": {
+          "schema": {
+            "__rl": true,
+            "mode": "list",
+            "value": "public"
+          },
+          "table": {
+            "__rl": true,
+            "value": "usuarios",
+            "mode": "list",
+            "cachedResultName": "usuarios"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "nome": "={{ $('Norm').item.json.name }}",
+              "telefone": "={{ $('Norm').item.json.number }}"
+            },
+            "matchingColumns": [
+              "id"
+            ],
+            "schema": [
+              {
+                "id": "id",
+                "displayName": "id",
+                "required": false,
+                "defaultMatch": true,
+                "display": true,
+                "type": "number",
+                "canBeUsedToMatch": true,
+                "removed": true
+              },
+              {
+                "id": "nome",
+                "displayName": "nome",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "telefone",
+                "displayName": "telefone",
+                "required": true,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "ultimo_contato",
+                "displayName": "ultimo_contato",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "dateTime",
+                "canBeUsedToMatch": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          1424,
+          592
+        ],
+        "id": "d9bea63b-c100-4691-ba92-b47e29fb91fc",
+        "name": "Insert rows in a table",
+        "credentials": {
+          "postgres": {
+            "id": "ybwPnymNctGG4PI6",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.merge",
+        "typeVersion": 3.2,
+        "position": [
+          1632,
+          496
+        ],
+        "id": "8267cfbc-751c-4821-a2a9-0570c01c0431",
+        "name": "Merge"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://dify.vilisystem.com.br/v1/chat-messages",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Authorization",
+                "value": "Bearer app-awGXaOcaaipDqNfwksDhq7d6"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"inputs\": {},\n  \"query\": \"{{ $json.concatMessages }}\",\n  \"response_mode\": \"blocking\",\n  \"conversation_id\": \"{{ $('Select rows from a table').item.json.conversation_id }}\",\n  \"user\": \"{{ $('Norm').item.json.name }}\"\n} ",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          3040,
+          480
+        ],
+        "id": "bbfc4b4d-b82a-4362-86f3-d4ccaab7c10a",
+        "name": "HTTP Request1"
+      },
+      {
+        "parameters": {
+          "operation": "select",
+          "schema": {
+            "__rl": true,
+            "mode": "list",
+            "value": "public"
+          },
+          "table": {
+            "__rl": true,
+            "value": "imoveis",
+            "mode": "list",
+            "cachedResultName": "imoveis"
+          },
+          "returnAll": true,
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          1008,
+          320
+        ],
+        "id": "a99806d2-3fc8-4ac6-95a1-20ab53d33b2a",
+        "name": "Select rows from a table1",
+        "credentials": {
+          "postgres": {
+            "id": "ybwPnymNctGG4PI6",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "3bc2ee84-9ac0-41ad-a1a1-22a8ae4ebb9a",
+                      "leftValue": "={{ $json.body.data.messageType }}",
+                      "rightValue": "audioMessage",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "audio message"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "leftValue": "={{ $json.body.data.messageType }}",
+                      "rightValue": "conversation",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals"
+                      },
+                      "id": "9ee19cfb-f410-4bde-aa9b-f3dba48eaf19"
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "text message"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "id": "586e5cd7-3074-48ef-a3d7-46540fa37b9c",
+                      "leftValue": "={{ $json.body.data.messageType }}",
+                      "rightValue": "imageMessage",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "image message"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.4,
+        "position": [
+          -288,
+          592
+        ],
+        "id": "cbad9e17-e2f2-448d-b15c-7d1f581a07f7",
+        "name": "Switch"
+      },
+      {
+        "parameters": {
+          "operation": "toBinary",
+          "sourceProperty": "body.data.message.base64",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.convertToFile",
+        "typeVersion": 1.1,
+        "position": [
+          -80,
+          736
+        ],
+        "id": "5dcccb3d-276a-4496-b329-d4ce756e6d93",
+        "name": "Convert to File"
+      },
+      {
+        "parameters": {
+          "resource": "image",
+          "operation": "analyze",
+          "modelId": {
+            "__rl": true,
+            "value": "gpt-5.4-mini",
+            "mode": "list",
+            "cachedResultName": "GPT-5.4-MINI"
+          },
+          "text": "Analise a imagem",
+          "inputType": "base64",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.openAi",
+        "typeVersion": 2.1,
+        "position": [
+          128,
+          736
+        ],
+        "id": "f90ff683-5536-4998-876e-6ae2c7bbab64",
+        "name": "Analyze image",
+        "credentials": {
+          "openAiApi": {
+            "id": "an9l2gJN1Qpwl6os",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "toBinary",
+          "sourceProperty": "body.data.message.base64",
+          "options": {
+            "fileName": "file.mp4"
+          }
+        },
+        "type": "n8n-nodes-base.convertToFile",
+        "typeVersion": 1.1,
+        "position": [
+          -80,
+          480
+        ],
+        "id": "bf55c3d7-56ad-4aff-b15d-7287379dabdc",
+        "name": "Convert to File1"
+      },
+      {
+        "parameters": {
+          "resource": "audio",
+          "operation": "transcribe",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.openAi",
+        "typeVersion": 2.3,
+        "position": [
+          128,
+          480
+        ],
+        "id": "4a65ada3-cea1-4fe8-a7d5-05cb5479ce36",
+        "name": "Transcribe a recording",
+        "credentials": {
+          "openAiApi": {
+            "id": "an9l2gJN1Qpwl6os",
+            "name": "OpenAI account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "2afe2e56-7a38-42f0-99f2-4d5f5b88b9e7",
+                "name": "text",
+                "value": "={{ $json.text || $json.message }}",
+                "type": "string"
+              },
+              {
+                "id": "91adb603-3f9d-4b26-a68e-f36bb7b636e9",
+                "name": "",
+                "value": "",
+                "type": "string"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          464,
+          608
+        ],
+        "id": "07d608ee-fec5-4668-9ec8-7f89fab1bdeb",
+        "name": "Edit Fields"
+      },
+      {
+        "parameters": {
+          "operation": "push",
+          "list": "={{ $json.telefone }}temp",
+          "messageData": "={{ $('Edit Fields').item.json.text }}",
+          "tail": true
+        },
+        "type": "n8n-nodes-base.redis",
+        "typeVersion": 1,
+        "position": [
+          1856,
+          496
+        ],
+        "id": "160ff340-53f7-47fe-92ce-50d612737802",
+        "name": "Redis",
+        "credentials": {
+          "redis": {
+            "id": "p1KMPeJCAhg5ZuxC",
+            "name": "Redis account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "get",
+          "key": "={{ $json.telefone }}temp",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.redis",
+        "typeVersion": 1,
+        "position": [
+          2240,
+          496
+        ],
+        "id": "0102ca80-e496-4356-a7d6-52b6124e1e73",
+        "name": "Redis1",
+        "credentials": {
+          "redis": {
+            "id": "p1KMPeJCAhg5ZuxC",
+            "name": "Redis account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "amount": 10
+        },
+        "type": "n8n-nodes-base.wait",
+        "typeVersion": 1.1,
+        "position": [
+          2048,
+          496
+        ],
+        "id": "0f65464f-790c-46cb-ac07-ecaae076a082",
+        "name": "Wait",
+        "webhookId": "3d7193a9-e962-498b-a228-351fb904f4eb",
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "c0aed7fa-ef56-4a88-a87c-599e39b52be4",
+                "leftValue": "={{ $json.propertyName.last() }}",
+                "rightValue": "={{ $('Norm').item.json.message }}",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          2432,
+          496
+        ],
+        "id": "f5dcf90f-86cd-463a-baa1-f5ad021c6a45",
+        "name": "If2"
+      },
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.noOp",
+        "typeVersion": 1,
+        "position": [
+          2656,
+          800
+        ],
+        "id": "1ff4da1c-cbcd-4dc0-9577-6fb66dab5b6b",
+        "name": "No Operation, do nothing1"
+      },
+      {
+        "parameters": {
+          "operation": "delete",
+          "key": "={{ $('Norm').item.json.number }}temp"
+        },
+        "type": "n8n-nodes-base.redis",
+        "typeVersion": 1,
+        "position": [
+          2672,
+          480
+        ],
+        "id": "5f4a6869-4e21-47d7-916f-a96ece5b17af",
+        "name": "Redis2",
+        "credentials": {
+          "redis": {
+            "id": "p1KMPeJCAhg5ZuxC",
+            "name": "Redis account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet concatMessages = \"\";\nfor (let item of $input.first().json.propertyName) {\n  concatMessages = concatMessages.concat(item, \"\\\\n\") ;\n}\n\nreturn {concatMessages};"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2880,
+          480
+        ],
+        "id": "27c7de34-7372-408e-9b66-cb25600470bc",
+        "name": "Code in JavaScript1"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "34c8e65a-c09b-4fca-a3fe-1220c488fdab",
+                "leftValue": "={{ $('Select rows from a table').item.json.conversation_id }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "exists",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          3216,
+          480
+        ],
+        "id": "1caef163-e852-45d2-a99d-a4e5c75e3c64",
+        "name": "If3"
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "schema": {
+            "__rl": true,
+            "mode": "list",
+            "value": "public"
+          },
+          "table": {
+            "__rl": true,
+            "value": "usuarios",
+            "mode": "list",
+            "cachedResultName": "usuarios"
+          },
+          "columns": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "id": "={{ $('Select rows from a table').item.json.id || $('Insert rows in a table').item.json.id }}",
+              "conversation_id": "={{ $json.conversation_id }}"
+            },
+            "matchingColumns": [
+              "id"
+            ],
+            "schema": [
+              {
+                "id": "id",
+                "displayName": "id",
+                "required": false,
+                "defaultMatch": true,
+                "display": true,
+                "type": "number",
+                "canBeUsedToMatch": true,
+                "removed": false
+              },
+              {
+                "id": "nome",
+                "displayName": "nome",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "telefone",
+                "displayName": "telefone",
+                "required": true,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "ultimo_contato",
+                "displayName": "ultimo_contato",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "dateTime",
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "conversation_id",
+                "displayName": "conversation_id",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "type": "string",
+                "canBeUsedToMatch": true
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          3408,
+          592
+        ],
+        "id": "8bdabb16-0c8d-4e34-83d3-cc33aa53d584",
+        "name": "Update rows in a table",
+        "credentials": {
+          "postgres": {
+            "id": "ybwPnymNctGG4PI6",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nlet messages = $('HTTP Request1').first().json.answer.split(\"||\");\n\n\nreturn {messages};"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3600,
+          464
+        ],
+        "id": "14fdcd21-f8ff-43b4-baba-b5f83e44ad75",
+        "name": "Code in JavaScript2"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          4048,
+          464
+        ],
+        "id": "e923f79a-1da7-471f-a403-467f59b56283",
+        "name": "Loop Over Items"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "=https://evolution.vilisystem.com.br/message/sendText/iago",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "apikey",
+                "value": "ADCC29D53BD8-4602-B0E2-5A43D62AD53A"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"number\":\"{{ $('Norm').item.json.number }}\",\n  \"text\":\"{{ $json.messages }}\",\n  \"delay\": 1200\n} ",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.4,
+        "position": [
+          4512,
+          736
+        ],
+        "id": "ad1c8fcf-f5a2-4781-95ec-f78651e6a427",
+        "name": "HTTP Request2"
+      },
+      {
+        "parameters": {
+          "fieldToSplitOut": "messages",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitOut",
+        "typeVersion": 1,
+        "position": [
+          3808,
+          464
+        ],
+        "id": "d781bb6b-9431-40ad-b7bf-f68dd8e17265",
+        "name": "Split Out"
+      },
+      {
+        "parameters": {
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 3
+                  },
+                  "conditions": [
+                    {
+                      "leftValue": "={{ $json.messages }}",
+                      "rightValue": "{\"preferencias\"",
+                      "operator": {
+                        "type": "string",
+                        "operation": "startsWith"
+                      },
+                      "id": "475a769a-148e-47e8-8e85-895861d89fe0"
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "preferences"
+              }
+            ]
+          },
+          "options": {
+            "fallbackOutput": "extra"
+          }
+        },
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.4,
+        "position": [
+          4320,
+          480
+        ],
+        "id": "47afdf23-f1ef-42f8-9311-78b0f4e224a6",
+        "name": "Switch1"
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "{{ $json.query }};\n",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          4720,
+          464
+        ],
+        "id": "d1f7ba40-3631-4836-ad3a-bd2e7e7fc3f8",
+        "name": "Execute a SQL query1",
+        "credentials": {
+          "postgres": {
+            "id": "ybwPnymNctGG4PI6",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const message = JSON.parse($input.first().json.messages)\n\nconst preferencias = message.preferencias;\n\nconst finalidade = preferencias.finalidade;\nconst precoMin = preferencias.faixa_preco - preferencias.faixa_preco * 0.2;\nconst precoMax = preferencias.faixa_preco + preferencias.faixa_preco * 0.2;\nconst cidade = preferencias.cidade;\nconst quartos = preferencias.quartos;\nconst suites = preferencias.suites;\nconst banheiros = preferencias.banheiros;\nconst tipo = preferencias.tipo;\nconst bairro = preferencias.bairro;\nconst regiao = preferencias.regiao_cidade;\nconst vagas = preferencias.vagas_carro;\nconst aceita_pet = preferencias.aceita_pet;\nconst mobiliado = preferencias.mobiliado;\n\nlet query = \"SELECT titulo, finalidade, preco, condominio_preco, cidade, quartos, suites, banheiros, tipo, bairro, vagas_carro, aceita_pet, mobiliado, imagem_principal FROM imoveis WHERE 1=1\";\n// WHERE 1=1 porque precisa existir antes do AND\n\nif (finalidade) query += ` AND finalidade ILIKE '${finalidade}'`;\nif (precoMin) query += ` AND preco >= ${precoMin}`;\nif (precoMax) query += ` AND preco <= ${precoMax}`;\nif (cidade) query += ` AND unaccent(cidade) ILIKE unaccent('${cidade}')`;\nif (quartos) query += ` AND quartos >= ${quartos} - 2`;\nif (quartos) query += ` AND quartos <= ${quartos} + 2`;\nif (banheiros) query += ` AND banheiros >= ${banheiros} - 2`;\nif (banheiros) query += ` AND banheiros <= ${banheiros} + 2`;\nif (suites) query += ` AND suites >= ${suites} - 2`;\nif (suites) query += ` AND suites <= ${suites} + 2`;\nif (tipo) query += ` AND tipo = '${tipo}'`;\nif (bairro) query += ` AND unaccent(bairro) ILIKE unaccent('${bairro}')`;\nif (vagas) query += ` AND vagas_carro = '${vagas}'`;\nif (regiao) query += ` AND regiao_cidade ILIKE '${regiao}'`;\nif (aceita_pet) query += ` AND aceita_pet = '${aceita_pet}'`;\nif (mobiliado) query += ` AND mobiliado = '${mobiliado}'`;\n\nreturn [{ query }];\n"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          4544,
+          464
+        ],
+        "id": "b6478f2a-1025-4be0-ad5f-d7c0f9e1502c",
+        "name": "Code in JavaScript"
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "delete from usuarios where nome = 'Casa Em Taipu De Fora';",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          1424,
+          336
+        ],
+        "id": "619a0bb4-b836-410d-b56f-eb230b41cda7",
+        "name": "Execute a SQL query users",
+        "credentials": {
+          "postgres": {
+            "id": "ybwPnymNctGG4PI6",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "executeQuery",
+          "query": "ALTER TABLE imoveis\nALTER COLUMN aceita_pet SET DEFAULT TRUE;",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.postgres",
+        "typeVersion": 2.6,
+        "position": [
+          1712,
+          336
+        ],
+        "id": "b43bcac6-3cee-4173-b152-39042a34e306",
+        "name": "Execute a SQL query imoveis",
+        "credentials": {
+          "postgres": {
+            "id": "ybwPnymNctGG4PI6",
+            "name": "Postgres account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "messages-api",
+          "instanceName": "={{ $('Webhook').item.json.body.instance }}",
+          "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+          "messageText": "=*Imóvel*:  {{ $json.titulo }}\n*Tipo*: {{ $json.tipo[0].toUpperCase() + $json.tipo.substring(1) }}\n*Finalidade*: {{ $json.finalidade[0].toUpperCase() + $json.finalidade.substring(1) }}\n*Preço*: {{ \"R$ \" + parseInt($json.preco.split(\".\")[0]).toLocaleString(\"pt-BR\") }}\n*Cidade*: {{ $json.cidade[0].toUpperCase() + $json.cidade.substring(1) }}\n*Bairro*: {{ $json.bairro }}\n*Quartos*: {{ $json.quartos }}\n*Suítes*: {{ $json.suites }}\n*Banheiros*: {{ $json.banheiros }}\n*Vagas de garagem*: {{ $json.vagas_carro }}\n*Mobiliado?*: {{ $json.mobiliado ? \"Sim\" : \"Não\" }}\n*Aceita Pet?*: {{ $json.aceita_pet ? \"Sim\" : \"Não\" }}",
+          "options_message": {}
+        },
+        "type": "n8n-nodes-evolution-api.evolutionApi",
+        "typeVersion": 1,
+        "position": [
+          5328,
+          576
+        ],
+        "id": "30d4da37-2382-4517-b397-860febc5c2c4",
+        "name": "Enviar texto",
+        "credentials": {
+          "evolutionApi": {
+            "id": "AWYwBlFIj0Gz75Xe",
+            "name": "Evolution account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.splitInBatches",
+        "typeVersion": 3,
+        "position": [
+          5152,
+          448
+        ],
+        "id": "ca0c7d13-4942-4de4-b305-7bbe9173b11d",
+        "name": "Loop Over Items1"
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
+            },
+            "conditions": [
+              {
+                "id": "5644c6a6-5870-4dfe-946d-cf9fdb2886b6",
+                "leftValue": "={{ $json.titulo }}",
+                "rightValue": "",
+                "operator": {
+                  "type": "string",
+                  "operation": "exists",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          4864,
+          464
+        ],
+        "id": "80be25bf-4628-4489-bd4e-eddb2f32fe2e",
+        "name": "If4"
+      },
+      {
+        "parameters": {
+          "resource": "messages-api",
+          "instanceName": "={{ $('Webhook').item.json.body.instance }}",
+          "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+          "messageText": "=Perdão, não há imóveis que atenda à essas preferências.",
+          "options_message": {}
+        },
+        "type": "n8n-nodes-evolution-api.evolutionApi",
+        "typeVersion": 1,
+        "position": [
+          5104,
+          816
+        ],
+        "id": "9367e78d-06b0-4299-9c4d-763b279a101e",
+        "name": "Enviar texto1",
+        "credentials": {
+          "evolutionApi": {
+            "id": "AWYwBlFIj0Gz75Xe",
+            "name": "Evolution account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "messages-api",
+          "operation": "send-buttons",
+          "instanceName": "={{ $('Webhook').item.json.body.instance }}",
+          "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+          "title": "Ver mais fotos",
+          "description": "Quero ver mais fotos",
+          "buttons": {
+            "buttonValues": [
+              {
+                "displayText": "Ver mais fotos",
+                "id": "1"
+              }
+            ]
+          }
+        },
+        "type": "n8n-nodes-evolution-api.evolutionApi",
+        "typeVersion": 1,
+        "position": [
+          5536,
+          576
+        ],
+        "id": "67be27b9-1708-432b-ab6b-45f7c3c5a9b7",
+        "name": "Enviar bot es",
+        "credentials": {
+          "evolutionApi": {
+            "id": "AWYwBlFIj0Gz75Xe",
+            "name": "Evolution account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "send",
+          "phoneNumberId": "1021096597763142",
+          "recipientPhoneNumber": "5573991189800",
+          "textBody": "Test message",
+          "additionalFields": {}
+        },
+        "type": "n8n-nodes-base.whatsApp",
+        "typeVersion": 1.1,
+        "position": [
+          -256,
+          1152
+        ],
+        "id": "85d6dd06-962e-4ada-a1cb-5e6c583707be",
+        "name": "Send message",
+        "webhookId": "d80c79b1-6fb5-46d3-9031-bc354ba0d757",
+        "credentials": {
+          "whatsAppApi": {
+            "id": "6t1TB1pB6W9gSS1u",
+            "name": "WhatsApp account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "53a01975-174e-48d7-8524-0ada97c273dd",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          -720,
+          608
+        ],
+        "id": "e0858ce1-0e7c-4410-8e19-df37bdf0629e",
+        "name": "Webhook",
+        "webhookId": "53a01975-174e-48d7-8524-0ada97c273dd"
+      }
+    ],
+    "connections": {
+      "Norm": {
+        "main": [
+          [
+            {
+              "node": "Switch",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If": {
+        "main": [
+          [
+            {
+              "node": "Select rows from a table",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "No Operation, do nothing",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Select rows from a table": {
+        "main": [
+          [
+            {
+              "node": "If1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If1": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Insert rows in a table",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Insert rows in a table": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      },
+      "HTTP Request1": {
+        "main": [
+          [
+            {
+              "node": "If3",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Switch": {
+        "main": [
+          [
+            {
+              "node": "Convert to File1",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Convert to File",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Convert to File": {
+        "main": [
+          [
+            {
+              "node": "Analyze image",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Analyze image": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Convert to File1": {
+        "main": [
+          [
+            {
+              "node": "Transcribe a recording",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Transcribe a recording": {
+        "main": [
+          [
+            {
+              "node": "Edit Fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Edit Fields": {
+        "main": [
+          [
+            {
+              "node": "If",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "node": "Redis",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Redis": {
+        "main": [
+          [
+            {
+              "node": "Wait",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Wait": {
+        "main": [
+          [
+            {
+              "node": "Redis1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Redis1": {
+        "main": [
+          [
+            {
+              "node": "If2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If2": {
+        "main": [
+          [
+            {
+              "node": "Redis2",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "No Operation, do nothing1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Redis2": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript1": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If3": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript2",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Update rows in a table",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update rows in a table": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript2": {
+        "main": [
+          [
+            {
+              "node": "Split Out",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Loop Over Items": {
+        "main": [
+          [],
+          [
+            {
+              "node": "Switch1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTTP Request2": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Split Out": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Switch1": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "HTTP Request2",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript": {
+        "main": [
+          [
+            {
+              "node": "Execute a SQL query1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Execute a SQL query1": {
+        "main": [
+          [
+            {
+              "node": "If4",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Enviar texto": {
+        "main": [
+          [
+            {
+              "node": "Enviar bot es",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Loop Over Items1": {
+        "main": [
+          [],
+          [
+            {
+              "node": "Enviar texto",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "If4": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items1",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Enviar texto1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Enviar bot es": {
+        "main": [
+          [
+            {
+              "node": "Loop Over Items1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook": {
+        "main": [
+          [
+            {
+              "node": "Norm",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1",
+      "binaryMode": "separate"
+    },
+    "staticData": null,
+    "meta": {
+      "templateCredsSetupCompleted": true
+    },
+    "pinData": {
+      "Webhook": [
+        {
+          "json": {
+            "headers": {
+              "host": "n8n.vilisystem.com.br",
+              "x-real-ip": "18.214.173.216",
+              "x-forwarded-for": "18.214.173.216",
+              "x-forwarded-proto": "https",
+              "connection": "upgrade",
+              "content-length": "721",
+              "accept": "application/json, text/plain, */*",
+              "content-type": "application/json",
+              "user-agent": "axios/1.13.2",
+              "accept-encoding": "gzip, compress, deflate, br"
+            },
+            "params": {},
+            "query": {},
+            "body": {
+              "event": "messages.upsert",
+              "instance": "iago",
+              "data": {
+                "key": {
+                  "remoteJid": "557391189800@s.whatsapp.net",
+                  "remoteJidAlt": "557391189800@s.whatsapp.net",
+                  "fromMe": true,
+                  "id": "3EB051A8AA52C83C51E9F1",
+                  "participant": "",
+                  "addressingMode": "lid"
+                },
+                "pushName": "Casa Em Taipu De Fora",
+                "status": "SERVER_ACK",
+                "message": {
+                  "conversation": "oi"
+                },
+                "messageType": "conversation",
+                "messageTimestamp": 1778292919,
+                "instanceId": "3eafbc9c-3c1d-4144-9fe2-86fb52e3f951",
+                "source": "web"
+              },
+              "destination": "https://n8n.vilisystem.com.br/webhook-test/53a01975-174e-48d7-8524-0ada97c273dd",
+              "date_time": "2026-05-08T23:15:19.389Z",
+              "sender": "557391189800@s.whatsapp.net",
+              "server_url": "https://evolution.vilisystem.com.br/",
+              "apikey": "ADCC29D53BD8-4602-B0E2-5A43D62AD53A"
+            },
+            "webhookUrl": "https://n8n.vilisystem.com.br/webhook-test/53a01975-174e-48d7-8524-0ada97c273dd",
+            "executionMode": "test"
+          },
+          "pairedItem": {
+            "item": 0
+          }
+        }
+      ]
+    },
+    "versionId": "af7d983f-3b30-4f10-991f-33401d449aa9",
+    "activeVersionId": "8eac176a-3500-41f7-9b27-b84bca768d72",
+    "versionCounter": 1411,
+    "triggerCount": 1,
+    "tags": [],
+    "shared": [
+      {
+        "updatedAt": "2026-04-20T16:08:16.900Z",
+        "createdAt": "2026-04-20T16:08:16.900Z",
+        "role": "workflow:owner",
+        "workflowId": "BDw5deeCLao2mFtk",
+        "projectId": "QvaOY67vhBn2tfwD",
+        "project": {
+          "updatedAt": "2026-04-20T16:06:26.762Z",
+          "createdAt": "2026-04-20T15:45:18.905Z",
+          "id": "QvaOY67vhBn2tfwD",
+          "name": "Iago Silva <iagovls@gmail.com>",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "creatorId": "b0df3607-89fc-4eab-9cbd-51b5ffd1b403"
+        }
+      }
+    ],
+    "versionMetadata": {
+      "name": null,
+      "description": null
+    }
+  }
+]

@@ -1,0 +1,5 @@
+@if (authService.isAuthenticated()) {
+  <app-home class="h-screen"></app-home>
+} @else {
+  <router-outlet/>
+}

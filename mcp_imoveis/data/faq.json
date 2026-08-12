@@ -1,0 +1,32 @@
+[
+  {
+    "pergunta": "Como pesquisar um imovel no banco de dados?",
+    "resposta": "Use a tool `buscar_imoveis` informando os filtros (ex: cidade, bairro, tipo, finalidade, preco_min/preco_max, quartos, suites, banheiros, vagas_garagem, area_util). A busca aplica tolerancia automaticamente (ex: ±2 para contagens, ±50% para area e expande preco quando min=max).",
+    "tags": ["pesquisa", "banco", "consulta", "imoveis", "postgres"]
+  },
+  {
+    "pergunta": "Quais filtros posso usar na pesquisa?",
+    "resposta": "A tool `buscar_imoveis` aceita: tipo, cidade, bairro, finalidade, preco_min, preco_max, quartos, suites, banheiros, vagas_garagem, area_util, mobiliado e aceita_pet.",
+    "tags": ["filtros", "parametros", "query"]
+  },
+  {
+    "pergunta": "Como limitar a quantidade de resultados?",
+    "resposta": "Informe o campo `limite` na tool `buscar_imoveis`. O valor maximo aceito pelo servidor e 100 registros por chamada.",
+    "tags": ["limite", "resultados", "performance"]
+  },
+  {
+    "pergunta": "Onde configuro a conexao com o Supabase?",
+    "resposta": "A conexao pode ser configurada pela variavel `SUPABASE_POSTGRES_DSN` ou pelos campos de host, porta, database, usuario, senha e sslmode no arquivo `.env`.",
+    "tags": ["supabase", "conexao", "env"]
+  },
+  {
+    "pergunta": "A pesquisa usa SQL bruto?",
+    "resposta": "Nao. O servidor monta a consulta com identificadores validados e placeholders parametrizados para reduzir risco de injecao SQL.",
+    "tags": ["seguranca", "sql", "postgres"]
+  },
+  {
+    "pergunta": "Como customizar o FAQ?",
+    "resposta": "Edite o arquivo `data/faq.json` ou informe outro caminho pela variavel `FAQ_SOURCE_PATH`.",
+    "tags": ["faq", "json", "customizacao"]
+  }
+]

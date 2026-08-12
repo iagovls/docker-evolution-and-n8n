@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-imoveis"
+version = "0.1.0"
+description = "MCP em Python para pesquisa de dados de imoveis no Postgres do Supabase e consulta de FAQ."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastmcp>=3.0.0,<4.0.0",
+  "psycopg[binary]>=3.2.0,<4.0.0",
+  "pydantic>=2.8.0,<3.0.0",
+  "python-dotenv>=1.0.0,<2.0.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

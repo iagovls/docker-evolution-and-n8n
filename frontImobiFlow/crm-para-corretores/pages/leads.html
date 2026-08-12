@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads</title>
+    <style id="theme-vars">
+:root {
+  --imobi-primary-50: #eef7f6;
+  --imobi-primary-100: #d8ecea;
+  --imobi-primary-200: #b5dad6;
+  --imobi-primary-300: #86c0bb;
+  --imobi-primary-400: #5aa49e;
+  --imobi-primary-500: #2f7f79;
+  --imobi-primary-600: #266863;
+  --imobi-primary-700: #1e524d;
+  --imobi-primary-800: #163f3b;
+  --imobi-primary-900: #102e2b;
+  --imobi-bg: #f6f3ee;
+  --imobi-surface: #ffffff;
+  --imobi-surface-muted: #f3efe8;
+  --imobi-panel: #fcfaf7;
+  --imobi-border: #ddd5c8;
+  --imobi-border-strong: #c7bca9;
+  --imobi-text: #1f2933;
+  --imobi-text-soft: #5e6b76;
+  --imobi-title: #13232c;
+  --imobi-inverse: #f8fafc;
+  --state-success: #188a5a;
+  --state-warning: #b7791f;
+  --state-error: #c24141;
+  --state-info: #2563eb;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+  --shadow-soft: 0 10px 30px rgba(19, 35, 44, 0.05);
+  --shadow-float: 0 22px 42px rgba(19, 35, 44, 0.12);
+  --font-title: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.dark {
+  --imobi-bg: #101a20;
+  --imobi-surface: #14232a;
+  --imobi-surface-muted: #1b2c34;
+  --imobi-panel: #122129;
+  --imobi-border: #29424b;
+  --imobi-border-strong: #37606d;
+  --imobi-text: #e8f0f2;
+  --imobi-text-soft: #a9bcc4;
+  --imobi-title: #ffffff;
+  --imobi-inverse: #102028;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--imobi-text);
+  background: var(--imobi-bg);
+}
+
+.imobi-h1 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.imobi-h2 {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.imobi-h3 {
+  font-family: var(--font-title);
+  font-size: 1.125rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.imobi-body {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.imobi-caption {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-border: var(--imobi-border);
+  }
+  @layer base {
+    body { background: var(--imobi-surface); color: var(--imobi-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main>
+      <div class="min-h-screen bg-[var(--imobi-bg)] text-[var(--imobi-text)]">
+        <div class="flex min-h-screen flex-col lg:flex-row">
+          <aside class="w-full border-b border-[var(--imobi-border)] bg-[var(--imobi-surface)] px-4 py-4 lg:min-h-screen lg:w-72 lg:border-b-0 lg:border-r lg:px-5 lg:py-6">
+            <div class="flex items-center justify-between lg:block">
+              <div>
+                <div class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--imobi-text-soft)]">ImobiFlow</div>
+                <div class="mt-2 text-2xl font-semibold text-[var(--imobi-title)]">CRM</div>
+              </div>
+              <div class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-primary-100)] px-3 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">Online</div>
+            </div>
+
+            <div class="mt-6 rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4">
+              <div class="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--imobi-text-soft)]">Corretor</div>
+              <div class="mt-2 text-base font-semibold text-[var(--imobi-title)]">Fernanda Moraes</div>
+              <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">28 imóveis ativos • 12 visitas nesta semana</div>
+            </div>
+
+            <nav class="mt-6 space-y-2">
+              <div data-nav-key="dashboard">
+                <a data-dom-id="nav-dashboard" href="dashboard.html" class="inline-flex w-full items-center justify-between gap-3 rounded-[var(--radius-md)] px-3 py-3 text-sm font-medium text-[var(--imobi-text-soft)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-surface-muted)] hover:text-[var(--imobi-title)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">
+                  <span class="inline-flex min-w-0 items-center gap-3 truncate">
+                    <i data-lucide="layout-dashboard" class="h-4 w-4 shrink-0"></i>
+                    <span class="truncate">Painel</span>
+                  </span>
+                  <i data-lucide="chevron-right" class="h-4 w-4 shrink-0"></i>
+                </a>
+              </div>
+              <div data-nav-key="leads" data-active="true">
+                <a data-dom-id="nav-leads" href="leads.html" aria-current="page" class="inline-flex w-full items-center justify-between gap-3 rounded-[var(--radius-md)] bg-[var(--imobi-primary-100)] px-3 py-3 text-sm font-medium text-[var(--imobi-primary-700)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-primary-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">
+                  <span class="inline-flex min-w-0 items-center gap-3 truncate">
+                    <i data-lucide="users" class="h-4 w-4 shrink-0"></i>
+                    <span class="truncate">Leads</span>
+                  </span>
+                  <span class="inline-flex h-2.5 w-2.5 shrink-0 items-center justify-center rounded-full bg-[var(--imobi-primary-600)]"></span>
+                </a>
+              </div>
+              <div data-nav-key="imoveis">
+                <a data-dom-id="nav-imoveis" href="imoveis.html" class="inline-flex w-full items-center justify-between gap-3 rounded-[var(--radius-md)] px-3 py-3 text-sm font-medium text-[var(--imobi-text-soft)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-surface-muted)] hover:text-[var(--imobi-title)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">
+                  <span class="inline-flex min-w-0 items-center gap-3 truncate">
+                    <i data-lucide="building-2" class="h-4 w-4 shrink-0"></i>
+                    <span class="truncate">Imóveis</span>
+                  </span>
+                  <i data-lucide="chevron-right" class="h-4 w-4 shrink-0"></i>
+                </a>
+              </div>
+              <div data-nav-key="agenda">
+                <a data-dom-id="nav-agenda" href="agenda.html" class="inline-flex w-full items-center justify-between gap-3 rounded-[var(--radius-md)] px-3 py-3 text-sm font-medium text-[var(--imobi-text-soft)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-surface-muted)] hover:text-[var(--imobi-title)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">
+                  <span class="inline-flex min-w-0 items-center gap-3 truncate">
+                    <i data-lucide="calendar-days" class="h-4 w-4 shrink-0"></i>
+                    <span class="truncate">Agenda</span>
+                  </span>
+                  <i data-lucide="chevron-right" class="h-4 w-4 shrink-0"></i>
+                </a>
+              </div>
+              <div data-nav-key="negociacoes">
+                <a data-dom-id="nav-negociacoes" href="negociacoes.html" class="inline-flex w-full items-center justify-between gap-3 rounded-[var(--radius-md)] px-3 py-3 text-sm font-medium text-[var(--imobi-text-soft)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-surface-muted)] hover:text-[var(--imobi-title)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">
+                  <span class="inline-flex min-w-0 items-center gap-3 truncate">
+                    <i data-lucide="handshake" class="h-4 w-4 shrink-0"></i>
+                    <span class="truncate">Negociações</span>
+                  </span>
+                  <i data-lucide="chevron-right" class="h-4 w-4 shrink-0"></i>
+                </a>
+              </div>
+            </nav>
+
+            <div class="mt-8 rounded-[var(--radius-lg)] bg-[var(--imobi-primary-700)] p-4 text-[var(--imobi-inverse)]">
+              <div class="text-sm font-semibold">Meta do mês</div>
+              <div class="mt-2 text-3xl font-semibold tabular-nums">R$ 980 mil</div>
+              <div class="mt-2 text-sm text-white/80">Faltam 2 contratos para bater o objetivo comercial.</div>
+            </div>
+          </aside>
+
+          <div class="flex-1">
+            <header class="border-b border-[var(--imobi-border)] bg-[var(--imobi-surface)]">
+              <div class="flex flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between lg:px-8">
+                <div class="min-w-0">
+                  <div class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--imobi-text-soft)]">Operação imobiliária</div>
+                  <h1 class="mt-2 imobi-h2 text-[var(--imobi-title)]" style="text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">Leads</h1>
+                  <p class="mt-2 max-w-2xl text-sm text-[var(--imobi-text-soft)]">Triagem, contato e avanço do funil com leitura rápida das próximas ações.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                  <label class="flex min-w-[220px] items-center gap-2 rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] px-3 py-2 text-sm text-[var(--imobi-text-soft)]">
+                    <span>Buscar</span>
+                    <input class="w-full bg-transparent text-[var(--imobi-text)] outline-none placeholder:text-[var(--imobi-text-soft)]" placeholder="Cliente, imóvel ou cidade" />
+                  </label>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <a href="leads.html" class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] px-4 py-2.5 text-sm font-semibold text-[var(--imobi-text)] transition-[background-color,border-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-surface-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">
+                      Novo lead
+                    </a>
+                    <a data-dom-id="cta-imoveis" href="imoveis.html" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-primary-600)] px-4 py-2.5 text-sm font-semibold text-[var(--imobi-inverse)] transition-[background-color,transform,box-shadow] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">
+                      <span>Ver imóveis</span>
+                      <i data-lucide="arrow-right" class="h-4 w-4 transition-transform duration-150 ease-[cubic-bezier(.2,.8,.2,1)] group-hover:translate-x-0.5 motion-reduce:transform-none"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            <div class="px-4 py-5 lg:px-8 lg:py-8">
+              <section class="space-y-6">
+                <div class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-4 lg:p-5">
+                  <div class="flex flex-col gap-4 lg:gap-5">
+                    <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                      <div class="min-w-0">
+                        <h2 class="imobi-h3 text-[var(--imobi-title)]">Filtros</h2>
+                        <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">Recorte rápido para priorizar contato, ticket e origem com mais calor.</p>
+                      </div>
+                      <div class="inline-flex items-center justify-center self-start whitespace-nowrap rounded-full bg-[var(--imobi-surface-muted)] px-3 py-1 text-xs font-semibold text-[var(--imobi-text-soft)]">Atualizado às 09:10</div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-primary-100)] px-3 py-2 text-sm font-semibold text-[var(--imobi-primary-700)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-primary-100)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">Quentes</button>
+                      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-surface-muted)] px-3 py-2 text-sm font-medium text-[var(--imobi-text-soft)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-primary-100)] hover:text-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">Hoje</button>
+                      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-surface-muted)] px-3 py-2 text-sm font-medium text-[var(--imobi-text-soft)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-primary-100)] hover:text-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">Sem retorno</button>
+                      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-surface-muted)] px-3 py-2 text-sm font-medium text-[var(--imobi-text-soft)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-primary-100)] hover:text-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">Alto ticket</button>
+                      <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-surface-muted)] px-3 py-2 text-sm font-medium text-[var(--imobi-text-soft)] transition-[background-color,color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-px hover:bg-[var(--imobi-primary-100)] hover:text-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transform-none motion-reduce:transition-none">Indicação</button>
+                    </div>
+
+                    <div class="grid gap-3 md:grid-cols-3">
+                      <div class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4">
+                        <div class="text-sm font-medium text-[var(--imobi-text-soft)]">Ativos</div>
+                        <div class="mt-2 text-3xl font-semibold text-[var(--imobi-title)] tabular-nums">48</div>
+                        <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">12 pedem contato antes do almoço.</div>
+                      </div>
+                      <div class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4">
+                        <div class="text-sm font-medium text-[var(--imobi-text-soft)]">Contato</div>
+                        <div class="mt-2 text-3xl font-semibold text-[var(--imobi-title)] tabular-nums">19</div>
+                        <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">Toques previstos para o dia de hoje.</div>
+                      </div>
+                      <div class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4">
+                        <div class="text-sm font-medium text-[var(--imobi-text-soft)]">Pipeline</div>
+                        <div class="mt-2 text-3xl font-semibold text-[var(--imobi-title)] tabular-nums">R$ 4,8 mi</div>
+                        <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">Volume potencial dos leads em andamento.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid gap-6 xl:grid-cols-12">
+                  <section class="xl:col-span-8">
+                    <div class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-4 lg:p-5">
+                      <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                        <div class="min-w-0">
+                          <h2 class="imobi-h3 text-[var(--imobi-title)]">Pipeline</h2>
+                          <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">Etapas compactas para triagem, visita e proposta sem perder o próximo passo.</p>
+                        </div>
+                        <div class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-surface-muted)] px-3 py-1 text-xs font-semibold text-[var(--imobi-text-soft)]">18 oportunidades em curso</div>
+                      </div>
+
+                      <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                        <article class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4 transition-[border-color,transform,box-shadow] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:border-[var(--imobi-primary-100)] hover:shadow-[var(--shadow-soft)] motion-reduce:transform-none motion-reduce:transition-none">
+                          <div class="flex items-start justify-between gap-3">
+                            <div class="min-w-0">
+                              <h3 class="text-base font-semibold text-[var(--imobi-title)]">Novos</h3>
+                              <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">8 leads</p>
+                            </div>
+                            <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-primary-100)] px-2.5 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">R$ 1,4 mi</span>
+                          </div>
+                          <div class="mt-4 space-y-3">
+                            <div class="rounded-[var(--radius-sm)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-3">
+                              <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Caio e Bruna</div>
+                              <div class="mt-1 truncate text-xs text-[var(--imobi-text-soft)]">Origem: Instagram • Studio Pinheiros</div>
+                              <div class="mt-2 truncate text-xs text-[var(--imobi-primary-700)]">Ação: validar renda às 10h</div>
+                            </div>
+                            <div class="rounded-[var(--radius-sm)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-3">
+                              <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Renata Lima</div>
+                              <div class="mt-1 truncate text-xs text-[var(--imobi-text-soft)]">Origem: Portal • Casa em Atibaia</div>
+                              <div class="mt-2 truncate text-xs text-[var(--imobi-primary-700)]">Ação: mandar vídeo do lote</div>
+                            </div>
+                          </div>
+                        </article>
+
+                        <article class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4 transition-[border-color,transform,box-shadow] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:border-[var(--imobi-primary-100)] hover:shadow-[var(--shadow-soft)] motion-reduce:transform-none motion-reduce:transition-none">
+                          <div class="flex items-start justify-between gap-3">
+                            <div class="min-w-0">
+                              <h3 class="text-base font-semibold text-[var(--imobi-title)]">Contato</h3>
+                              <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">14 leads</p>
+                            </div>
+                            <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-primary-100)] px-2.5 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">R$ 1,1 mi</span>
+                          </div>
+                          <div class="mt-4 space-y-3">
+                            <div class="rounded-[var(--radius-sm)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-3">
+                              <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Marta Silva</div>
+                              <div class="mt-1 truncate text-xs text-[var(--imobi-text-soft)]">Origem: Indicação • Cobertura Brooklin</div>
+                              <div class="mt-2 truncate text-xs text-[var(--imobi-primary-700)]">Ação: ligar após visita escolar</div>
+                            </div>
+                            <div class="rounded-[var(--radius-sm)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-3">
+                              <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Thiago Prado</div>
+                              <div class="mt-1 truncate text-xs text-[var(--imobi-text-soft)]">Origem: Meta • Sala comercial Moema</div>
+                              <div class="mt-2 truncate text-xs text-[var(--imobi-primary-700)]">Ação: confirmar tour amanhã</div>
+                            </div>
+                          </div>
+                        </article>
+
+                        <article class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4 transition-[border-color,transform,box-shadow] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:border-[var(--imobi-primary-100)] hover:shadow-[var(--shadow-soft)] motion-reduce:transform-none motion-reduce:transition-none">
+                          <div class="flex items-start justify-between gap-3">
+                            <div class="min-w-0">
+                              <h3 class="text-base font-semibold text-[var(--imobi-title)]">Visita</h3>
+                              <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">7 leads</p>
+                            </div>
+                            <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-primary-100)] px-2.5 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">R$ 1,5 mi</span>
+                          </div>
+                          <div class="mt-4 space-y-3">
+                            <div class="rounded-[var(--radius-sm)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-3">
+                              <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Larissa Teixeira</div>
+                              <div class="mt-1 truncate text-xs text-[var(--imobi-text-soft)]">Origem: Google • Apartamento Perdizes</div>
+                              <div class="mt-2 truncate text-xs text-[var(--imobi-primary-700)]">Ação: enviar mapa do entorno</div>
+                            </div>
+                            <div class="rounded-[var(--radius-sm)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-3">
+                              <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Eduardo Lopes</div>
+                              <div class="mt-1 truncate text-xs text-[var(--imobi-text-soft)]">Origem: Site • Casa em Alphaville</div>
+                              <div class="mt-2 truncate text-xs text-[var(--imobi-primary-700)]">Ação: reservar chave 16h</div>
+                            </div>
+                          </div>
+                        </article>
+
+                        <article class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4 transition-[border-color,transform,box-shadow] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:border-[var(--imobi-primary-100)] hover:shadow-[var(--shadow-soft)] motion-reduce:transform-none motion-reduce:transition-none">
+                          <div class="flex items-start justify-between gap-3">
+                            <div class="min-w-0">
+                              <h3 class="text-base font-semibold text-[var(--imobi-title)]">Proposta</h3>
+                              <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">4 leads</p>
+                            </div>
+                            <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-primary-100)] px-2.5 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">R$ 780 mil</span>
+                          </div>
+                          <div class="mt-4 space-y-3">
+                            <div class="rounded-[var(--radius-sm)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-3">
+                              <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Sofia Rezende</div>
+                              <div class="mt-1 truncate text-xs text-[var(--imobi-text-soft)]">Origem: Indicação • Garden Vila Madalena</div>
+                              <div class="mt-2 truncate text-xs text-[var(--imobi-primary-700)]">Ação: alinhar contraproposta</div>
+                            </div>
+                            <div class="rounded-[var(--radius-sm)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-3">
+                              <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Paulo Nogueira</div>
+                              <div class="mt-1 truncate text-xs text-[var(--imobi-text-soft)]">Origem: Evento • Terreno em Vinhedo</div>
+                              <div class="mt-2 truncate text-xs text-[var(--imobi-primary-700)]">Ação: fechar prazo da minuta</div>
+                            </div>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </section>
+
+                  <aside class="space-y-4 xl:col-span-4">
+                    <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-4 lg:p-5">
+                      <h2 class="imobi-h3 text-[var(--imobi-title)]">Resumo</h2>
+                      <div class="mt-4 rounded-[var(--radius-md)] bg-[var(--imobi-panel)] p-4">
+                        <div class="text-sm font-medium text-[var(--imobi-text-soft)]">Conversão</div>
+                        <div class="mt-2 text-4xl font-semibold text-[var(--imobi-title)] tabular-nums">18%</div>
+                        <p class="mt-2 text-sm text-[var(--imobi-text-soft)]">Subida de 3 pontos sobre a carteira da semana passada.</p>
+                      </div>
+                      <div class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+                        <div class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4">
+                          <div class="text-sm font-medium text-[var(--imobi-text-soft)]">Origem quente</div>
+                          <div class="mt-2 text-lg font-semibold text-[var(--imobi-title)]">Instagram</div>
+                          <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">31% dos leads com melhor taxa de resposta.</p>
+                        </div>
+                        <div class="rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4">
+                          <div class="text-sm font-medium text-[var(--imobi-text-soft)]">SLA contato</div>
+                          <div class="mt-2 text-lg font-semibold text-[var(--imobi-title)]">12 min</div>
+                          <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">Meta de primeira resposta para leads quentes.</p>
+                        </div>
+                      </div>
+                    </section>
+
+                    <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-4 lg:p-5">
+                      <h2 class="imobi-h3 text-[var(--imobi-title)]">Origem</h2>
+                      <div class="mt-4 space-y-4">
+                        <div>
+                          <div class="flex items-center justify-between gap-3">
+                            <span class="truncate text-sm font-medium text-[var(--imobi-title)]">Instagram</span>
+                            <span class="shrink-0 text-sm text-[var(--imobi-text-soft)] tabular-nums">31%</span>
+                          </div>
+                          <div class="mt-2 h-2 rounded-full bg-[var(--imobi-surface-muted)]">
+                            <div class="h-2 rounded-full bg-[var(--imobi-primary-600)]" style="width: 31%;"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="flex items-center justify-between gap-3">
+                            <span class="truncate text-sm font-medium text-[var(--imobi-title)]">Indicação</span>
+                            <span class="shrink-0 text-sm text-[var(--imobi-text-soft)] tabular-nums">26%</span>
+                          </div>
+                          <div class="mt-2 h-2 rounded-full bg-[var(--imobi-surface-muted)]">
+                            <div class="h-2 rounded-full bg-[var(--imobi-primary-600)]" style="width: 26%; opacity: 0.82;"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="flex items-center justify-between gap-3">
+                            <span class="truncate text-sm font-medium text-[var(--imobi-title)]">Portal</span>
+                            <span class="shrink-0 text-sm text-[var(--imobi-text-soft)] tabular-nums">19%</span>
+                          </div>
+                          <div class="mt-2 h-2 rounded-full bg-[var(--imobi-surface-muted)]">
+                            <div class="h-2 rounded-full bg-[var(--imobi-primary-600)]" style="width: 19%; opacity: 0.64;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+
+                    <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-4 lg:p-5">
+                      <h2 class="imobi-h3 text-[var(--imobi-title)]">SLA</h2>
+                      <div class="mt-4 space-y-3">
+                        <div class="flex items-start justify-between gap-3 rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-3">
+                          <div class="min-w-0">
+                            <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">No prazo</div>
+                            <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">32 leads com retorno dentro da meta.</div>
+                          </div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold" style="background-color: var(--imobi-primary-100); color: var(--imobi-primary-700);">67%</span>
+                        </div>
+                        <div class="flex items-start justify-between gap-3 rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-3">
+                          <div class="min-w-0">
+                            <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Atenção</div>
+                            <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">10 leads passam de 20 minutos até o retorno.</div>
+                          </div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold" style="background-color: var(--imobi-surface-muted); color: var(--state-warning);">21%</span>
+                        </div>
+                        <div class="flex items-start justify-between gap-3 rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-3">
+                          <div class="min-w-0">
+                            <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Crítico</div>
+                            <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">6 leads quentes aguardam resposta há mais de 40 minutos.</div>
+                          </div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold" style="background-color: var(--imobi-surface-muted); color: var(--state-error);">6</span>
+                        </div>
+                      </div>
+                    </section>
+                  </aside>
+                </div>
+
+                <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-4 lg:p-5">
+                  <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div class="min-w-0">
+                      <h2 class="imobi-h3 text-[var(--imobi-title)]">Lista</h2>
+                      <p class="mt-1 text-sm text-[var(--imobi-text-soft)]">Leads em ordem de prioridade, estágio e ação imediata.</p>
+                    </div>
+                    <div class="inline-flex items-center justify-center self-start whitespace-nowrap rounded-full bg-[var(--imobi-surface-muted)] px-3 py-1 text-xs font-semibold text-[var(--imobi-text-soft)]">48 registros</div>
+                  </div>
+
+                  <div class="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--imobi-border)]">
+                    <div class="hidden grid-cols-[minmax(0,2.1fr)_0.8fr_0.9fr_0.9fr_1fr_1.2fr] gap-3 bg-[var(--imobi-panel)] px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--imobi-text-soft)] lg:grid">
+                      <div>Lead</div>
+                      <div>Pri.</div>
+                      <div>Etapa</div>
+                      <div>Origem</div>
+                      <div>Ticket</div>
+                      <div>Ação</div>
+                    </div>
+
+                    <div class="divide-y divide-[var(--imobi-border)]">
+                      <article class="grid gap-4 bg-[var(--imobi-surface)] px-4 py-4 transition-[background-color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:bg-[var(--imobi-panel)] motion-reduce:transform-none motion-reduce:transition-none lg:grid-cols-[minmax(0,2.1fr)_0.8fr_0.9fr_0.9fr_1fr_1.2fr] lg:items-center">
+                        <div class="flex min-w-0 items-center gap-3">
+                          <div class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--imobi-primary-100)] text-sm font-semibold text-[var(--imobi-primary-700)]">CS</div>
+                          <div class="min-w-0">
+                            <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Carolina Sampaio</div>
+                            <div class="mt-1 truncate text-sm text-[var(--imobi-text-soft)]">Busca apartamento com varanda em Perdizes.</div>
+                          </div>
+                        </div>
+                        <div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold" style="background-color: var(--imobi-surface-muted); color: var(--state-error);">Alta</span>
+                        </div>
+                        <div class="truncate text-sm text-[var(--imobi-text)]">Contato</div>
+                        <div class="truncate text-sm text-[var(--imobi-text-soft)]">Instagram</div>
+                        <div class="truncate text-sm font-semibold text-[var(--imobi-title)] tabular-nums">R$ 780 mil</div>
+                        <div class="truncate text-sm text-[var(--imobi-primary-700)]">Ligar 11h</div>
+                      </article>
+
+                      <article class="grid gap-4 bg-[var(--imobi-surface)] px-4 py-4 transition-[background-color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:bg-[var(--imobi-panel)] motion-reduce:transform-none motion-reduce:transition-none lg:grid-cols-[minmax(0,2.1fr)_0.8fr_0.9fr_0.9fr_1fr_1.2fr] lg:items-center">
+                        <div class="flex min-w-0 items-center gap-3">
+                          <div class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--imobi-primary-100)] text-sm font-semibold text-[var(--imobi-primary-700)]">MR</div>
+                          <div class="min-w-0">
+                            <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Marcos Rocha</div>
+                            <div class="mt-1 truncate text-sm text-[var(--imobi-text-soft)]">Quer casa com escritório para mudança em agosto.</div>
+                          </div>
+                        </div>
+                        <div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold" style="background-color: var(--imobi-primary-100); color: var(--imobi-primary-700);">Média</span>
+                        </div>
+                        <div class="truncate text-sm text-[var(--imobi-text)]">Visita</div>
+                        <div class="truncate text-sm text-[var(--imobi-text-soft)]">Indicação</div>
+                        <div class="truncate text-sm font-semibold text-[var(--imobi-title)] tabular-nums">R$ 1,2 mi</div>
+                        <div class="truncate text-sm text-[var(--imobi-primary-700)]">Enviar tour</div>
+                      </article>
+
+                      <article class="grid gap-4 bg-[var(--imobi-surface)] px-4 py-4 transition-[background-color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:bg-[var(--imobi-panel)] motion-reduce:transform-none motion-reduce:transition-none lg:grid-cols-[minmax(0,2.1fr)_0.8fr_0.9fr_0.9fr_1fr_1.2fr] lg:items-center">
+                        <div class="flex min-w-0 items-center gap-3">
+                          <div class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--imobi-primary-100)] text-sm font-semibold text-[var(--imobi-primary-700)]">LT</div>
+                          <div class="min-w-0">
+                            <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Larissa Teixeira</div>
+                            <div class="mt-1 truncate text-sm text-[var(--imobi-text-soft)]">Quer fechar visita no sábado com família completa.</div>
+                          </div>
+                        </div>
+                        <div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold" style="background-color: var(--imobi-surface-muted); color: var(--state-error);">Alta</span>
+                        </div>
+                        <div class="truncate text-sm text-[var(--imobi-text)]">Visita</div>
+                        <div class="truncate text-sm text-[var(--imobi-text-soft)]">Google</div>
+                        <div class="truncate text-sm font-semibold text-[var(--imobi-title)] tabular-nums">R$ 930 mil</div>
+                        <div class="truncate text-sm text-[var(--imobi-primary-700)]">Confirmar rota</div>
+                      </article>
+
+                      <article class="grid gap-4 bg-[var(--imobi-surface)] px-4 py-4 transition-[background-color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:bg-[var(--imobi-panel)] motion-reduce:transform-none motion-reduce:transition-none lg:grid-cols-[minmax(0,2.1fr)_0.8fr_0.9fr_0.9fr_1fr_1.2fr] lg:items-center">
+                        <div class="flex min-w-0 items-center gap-3">
+                          <div class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--imobi-primary-100)] text-sm font-semibold text-[var(--imobi-primary-700)]">SF</div>
+                          <div class="min-w-0">
+                            <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Sofia Faria</div>
+                            <div class="mt-1 truncate text-sm text-[var(--imobi-text-soft)]">Comparando garden e cobertura para uso próprio.</div>
+                          </div>
+                        </div>
+                        <div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold" style="background-color: var(--imobi-primary-100); color: var(--imobi-primary-700);">Média</span>
+                        </div>
+                        <div class="truncate text-sm text-[var(--imobi-text)]">Proposta</div>
+                        <div class="truncate text-sm text-[var(--imobi-text-soft)]">Indicação</div>
+                        <div class="truncate text-sm font-semibold text-[var(--imobi-title)] tabular-nums">R$ 1,45 mi</div>
+                        <div class="truncate text-sm text-[var(--imobi-primary-700)]">Rever minuta</div>
+                      </article>
+
+                      <article class="grid gap-4 bg-[var(--imobi-surface)] px-4 py-4 transition-[background-color,transform] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-0.5 hover:bg-[var(--imobi-panel)] motion-reduce:transform-none motion-reduce:transition-none lg:grid-cols-[minmax(0,2.1fr)_0.8fr_0.9fr_0.9fr_1fr_1.2fr] lg:items-center">
+                        <div class="flex min-w-0 items-center gap-3">
+                          <div class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--imobi-primary-100)] text-sm font-semibold text-[var(--imobi-primary-700)]">PN</div>
+                          <div class="min-w-0">
+                            <div class="truncate text-sm font-semibold text-[var(--imobi-title)]">Paulo Nogueira</div>
+                            <div class="mt-1 truncate text-sm text-[var(--imobi-text-soft)]">Terreno para incorporação com análise jurídica em curso.</div>
+                          </div>
+                        </div>
+                        <div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold" style="background-color: var(--imobi-surface-muted); color: var(--state-warning);">Baixa</span>
+                        </div>
+                        <div class="truncate text-sm text-[var(--imobi-text)]">Proposta</div>
+                        <div class="truncate text-sm text-[var(--imobi-text-soft)]">Evento</div>
+                        <div class="truncate text-sm font-semibold text-[var(--imobi-title)] tabular-nums">R$ 410 mil</div>
+                        <div class="truncate text-sm text-[var(--imobi-primary-700)]">Cobrar retorno</div>
+                      </article>
+                    </div>
+                  </div>
+                </section>
+
+                <footer class="flex flex-col gap-3 rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] px-4 py-4 text-sm text-[var(--imobi-text-soft)] md:flex-row md:items-center md:justify-between">
+                  <p class="min-w-0 truncate">Base comercial do corretor com foco em velocidade de resposta e avanço do funil.</p>
+                  <div class="flex flex-wrap items-center gap-4">
+                    <a href="dashboard.html" class="transition-[color] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:text-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transition-none">Painel</a>
+                    <a href="agenda.html" class="transition-[color] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:text-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transition-none">Agenda</a>
+                    <a href="negociacoes.html" class="transition-[color] duration-150 ease-[cubic-bezier(.2,.8,.2,1)] hover:text-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-100)] motion-reduce:transition-none">Negociações</a>
+                  </div>
+                </footer>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

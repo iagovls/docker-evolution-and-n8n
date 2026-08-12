@@ -1,0 +1,90 @@
+:root {
+  --imobi-primary-50: #eef7f6;
+  --imobi-primary-100: #d8ecea;
+  --imobi-primary-200: #b5dad6;
+  --imobi-primary-300: #86c0bb;
+  --imobi-primary-400: #5aa49e;
+  --imobi-primary-500: #2f7f79;
+  --imobi-primary-600: #266863;
+  --imobi-primary-700: #1e524d;
+  --imobi-primary-800: #163f3b;
+  --imobi-primary-900: #102e2b;
+  --imobi-bg: #f6f3ee;
+  --imobi-surface: #ffffff;
+  --imobi-surface-muted: #f3efe8;
+  --imobi-panel: #fcfaf7;
+  --imobi-border: #ddd5c8;
+  --imobi-border-strong: #c7bca9;
+  --imobi-text: #1f2933;
+  --imobi-text-soft: #5e6b76;
+  --imobi-title: #13232c;
+  --imobi-inverse: #f8fafc;
+  --state-success: #188a5a;
+  --state-warning: #b7791f;
+  --state-error: #c24141;
+  --state-info: #2563eb;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+  --shadow-soft: 0 10px 30px rgba(19, 35, 44, 0.05);
+  --shadow-float: 0 22px 42px rgba(19, 35, 44, 0.12);
+  --font-title: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.dark {
+  --imobi-bg: #101a20;
+  --imobi-surface: #14232a;
+  --imobi-surface-muted: #1b2c34;
+  --imobi-panel: #122129;
+  --imobi-border: #29424b;
+  --imobi-border-strong: #37606d;
+  --imobi-text: #e8f0f2;
+  --imobi-text-soft: #a9bcc4;
+  --imobi-title: #ffffff;
+  --imobi-inverse: #102028;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--imobi-text);
+  background: var(--imobi-bg);
+}
+
+.imobi-h1 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.imobi-h2 {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.imobi-h3 {
+  font-family: var(--font-title);
+  font-size: 1.125rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.imobi-body {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.imobi-caption {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 500;
+}

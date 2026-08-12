@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imóveis</title>
+    <style id="theme-vars">
+:root {
+  --imobi-primary-50: #eef7f6;
+  --imobi-primary-100: #d8ecea;
+  --imobi-primary-200: #b5dad6;
+  --imobi-primary-300: #86c0bb;
+  --imobi-primary-400: #5aa49e;
+  --imobi-primary-500: #2f7f79;
+  --imobi-primary-600: #266863;
+  --imobi-primary-700: #1e524d;
+  --imobi-primary-800: #163f3b;
+  --imobi-primary-900: #102e2b;
+  --imobi-bg: #f6f3ee;
+  --imobi-surface: #ffffff;
+  --imobi-surface-muted: #f3efe8;
+  --imobi-panel: #fcfaf7;
+  --imobi-border: #ddd5c8;
+  --imobi-border-strong: #c7bca9;
+  --imobi-text: #1f2933;
+  --imobi-text-soft: #5e6b76;
+  --imobi-title: #13232c;
+  --imobi-inverse: #f8fafc;
+  --state-success: #188a5a;
+  --state-warning: #b7791f;
+  --state-error: #c24141;
+  --state-info: #2563eb;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+  --shadow-soft: 0 10px 30px rgba(19, 35, 44, 0.05);
+  --shadow-float: 0 22px 42px rgba(19, 35, 44, 0.12);
+  --font-title: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.dark {
+  --imobi-bg: #101a20;
+  --imobi-surface: #14232a;
+  --imobi-surface-muted: #1b2c34;
+  --imobi-panel: #122129;
+  --imobi-border: #29424b;
+  --imobi-border-strong: #37606d;
+  --imobi-text: #e8f0f2;
+  --imobi-text-soft: #a9bcc4;
+  --imobi-title: #ffffff;
+  --imobi-inverse: #102028;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--imobi-text);
+  background: var(--imobi-bg);
+}
+
+.imobi-h1 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.imobi-h2 {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.imobi-h3 {
+  font-family: var(--font-title);
+  font-size: 1.125rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.imobi-body {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.imobi-caption {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-border: var(--imobi-border);
+  }
+  @layer base {
+    body { background: var(--imobi-surface); color: var(--imobi-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main>
+      <div class="min-h-screen bg-[var(--imobi-bg)] text-[var(--imobi-text)]">
+        <div class="flex min-h-screen flex-col lg:flex-row">
+          <aside class="w-full border-b border-[var(--imobi-border)] bg-[var(--imobi-surface)] px-4 py-4 lg:min-h-screen lg:w-72 lg:border-b-0 lg:border-r lg:px-5 lg:py-6">
+            <div class="flex items-center justify-between lg:block">
+              <div>
+                <div class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--imobi-text-soft)]">ImobiFlow</div>
+                <div class="mt-2 text-2xl font-semibold text-[var(--imobi-title)]">CRM</div>
+              </div>
+              <div class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[var(--imobi-primary-100)] px-3 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">Online</div>
+            </div>
+
+            <div class="mt-6 rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4">
+              <div class="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--imobi-text-soft)]">Corretor</div>
+              <div class="mt-2 text-base font-semibold text-[var(--imobi-title)]">Fernanda Moraes</div>
+              <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">28 imóveis ativos • 12 visitas esta semana</div>
+            </div>
+
+            <nav class="mt-6 space-y-2">
+              <div data-nav-key="dashboard">
+                <a href="dashboard.html" data-dom-id="nav-dashboard" class="flex items-center gap-3 rounded-[var(--radius-md)] border border-transparent px-3 py-3 text-sm font-medium text-[var(--imobi-text-soft)] transition-colors duration-150 hover:border-[var(--imobi-border)] hover:bg-[var(--imobi-panel)] hover:text-[var(--imobi-title)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                  <i data-lucide="layout-dashboard" class="h-4 w-4 shrink-0"></i>
+                  <span class="truncate">Dashboard</span>
+                </a>
+              </div>
+              <div data-nav-key="leads">
+                <a href="leads.html" data-dom-id="nav-leads" class="flex items-center gap-3 rounded-[var(--radius-md)] border border-transparent px-3 py-3 text-sm font-medium text-[var(--imobi-text-soft)] transition-colors duration-150 hover:border-[var(--imobi-border)] hover:bg-[var(--imobi-panel)] hover:text-[var(--imobi-title)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                  <i data-lucide="users" class="h-4 w-4 shrink-0"></i>
+                  <span class="truncate">Leads</span>
+                </a>
+              </div>
+              <div data-nav-key="imoveis">
+                <a href="imoveis.html" data-dom-id="nav-imoveis" data-active="true" aria-current="page" class="flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--imobi-primary-200)] bg-[var(--imobi-primary-100)] px-3 py-3 text-sm font-semibold text-[var(--imobi-primary-700)] transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                  <i data-lucide="building-2" class="h-4 w-4 shrink-0"></i>
+                  <span class="truncate">Imóveis</span>
+                </a>
+              </div>
+              <div data-nav-key="agenda">
+                <a href="agenda.html" data-dom-id="nav-agenda" class="flex items-center gap-3 rounded-[var(--radius-md)] border border-transparent px-3 py-3 text-sm font-medium text-[var(--imobi-text-soft)] transition-colors duration-150 hover:border-[var(--imobi-border)] hover:bg-[var(--imobi-panel)] hover:text-[var(--imobi-title)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                  <i data-lucide="calendar-range" class="h-4 w-4 shrink-0"></i>
+                  <span class="truncate">Agenda</span>
+                </a>
+              </div>
+              <div data-nav-key="negociacoes">
+                <a href="negociacoes.html" data-dom-id="nav-negociacoes" class="flex items-center gap-3 rounded-[var(--radius-md)] border border-transparent px-3 py-3 text-sm font-medium text-[var(--imobi-text-soft)] transition-colors duration-150 hover:border-[var(--imobi-border)] hover:bg-[var(--imobi-panel)] hover:text-[var(--imobi-title)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                  <i data-lucide="handshake" class="h-4 w-4 shrink-0"></i>
+                  <span class="truncate">Negociações</span>
+                </a>
+              </div>
+            </nav>
+
+            <div class="mt-8 rounded-[var(--radius-lg)] bg-[var(--imobi-primary-700)] p-4 text-[var(--imobi-inverse)]">
+              <div class="text-sm font-semibold">Meta do mês</div>
+              <div class="mt-2 text-3xl font-semibold [font-variant-numeric:tabular-nums]">R$ 980 mil</div>
+              <div class="mt-2 text-sm text-[var(--imobi-primary-100)]">Faltam 2 contratos para bater o objetivo comercial.</div>
+            </div>
+          </aside>
+
+          <div class="flex-1">
+            <header class="border-b border-[var(--imobi-border)] bg-[var(--imobi-surface)]">
+              <div class="flex flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between lg:px-8">
+                <div class="min-w-0">
+                  <div class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--imobi-text-soft)]">Operação imobiliária</div>
+                  <h1 class="mt-2 imobi-h2 text-[var(--imobi-title)]" style="text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">Imóveis</h1>
+                  <p class="mt-2 max-w-2xl text-sm text-[var(--imobi-text-soft)]">Catálogo de imóveis com leitura rápida do estoque, captação em andamento e desempenho comercial por praça e faixa.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                  <label class="flex min-w-[220px] items-center gap-2 rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] px-3 py-2 text-sm text-[var(--imobi-text-soft)]">
+                    <span class="shrink-0">Buscar</span>
+                    <input class="w-full bg-transparent text-[var(--imobi-text)] outline-none placeholder:text-[var(--imobi-text-soft)]" placeholder="Cliente, imóvel ou cidade" />
+                  </label>
+                  <a href="agenda.html" data-dom-id="cta-agenda" class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-primary-600)] px-4 py-3 text-sm font-semibold text-[var(--imobi-inverse)] transition-colors duration-150 hover:bg-[var(--imobi-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)] active:translate-y-px">
+                    <span>Ver agenda</span>
+                    <i data-lucide="arrow-right" class="h-4 w-4 transition-transform duration-150 group-hover:translate-x-0.5"></i>
+                  </a>
+                </div>
+              </div>
+            </header>
+
+            <main class="px-4 py-5 lg:px-8 lg:py-8">
+              <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                <article class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                      <p class="text-sm font-medium text-[var(--imobi-text-soft)] truncate">Estoque ativo</p>
+                      <p class="mt-3 text-3xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">128</p>
+                    </div>
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-[var(--imobi-primary-100)] text-[var(--imobi-primary-700)]">
+                      <i data-lucide="building" class="h-5 w-5"></i>
+                    </span>
+                  </div>
+                  <p class="mt-4 text-sm text-[var(--imobi-text-soft)]">19 novos ativos nas últimas duas semanas.</p>
+                </article>
+                <article class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                      <p class="text-sm font-medium text-[var(--imobi-text-soft)] truncate">Ticket médio</p>
+                      <p class="mt-3 text-3xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">R$ 1,42 mi</p>
+                    </div>
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] text-[var(--imobi-primary-700)]">
+                      <i data-lucide="badge-dollar-sign" class="h-5 w-5"></i>
+                    </span>
+                  </div>
+                  <p class="mt-4 text-sm text-[var(--imobi-text-soft)]">Faixa premium puxa 47% do VGV disponível.</p>
+                </article>
+                <article class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                      <p class="text-sm font-medium text-[var(--imobi-text-soft)] truncate">Captação quente</p>
+                      <p class="mt-3 text-3xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">14</p>
+                    </div>
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-[var(--imobi-primary-100)] text-[var(--imobi-primary-700)]">
+                      <i data-lucide="sparkles" class="h-5 w-5"></i>
+                    </span>
+                  </div>
+                  <p class="mt-4 text-sm text-[var(--imobi-text-soft)]">Oportunidades prontas para visita de avaliação.</p>
+                </article>
+                <article class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                      <p class="text-sm font-medium text-[var(--imobi-text-soft)] truncate">Giro do portfólio</p>
+                      <p class="mt-3 text-3xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">38 dias</p>
+                    </div>
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] text-[var(--imobi-primary-700)]">
+                      <i data-lucide="activity" class="h-5 w-5"></i>
+                    </span>
+                  </div>
+                  <p class="mt-4 text-sm text-[var(--imobi-text-soft)]">Portfólio em ritmo acima da meta trimestral.</p>
+                </article>
+              </section>
+
+              <section class="mt-6 rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                <div class="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+                  <div class="min-w-0">
+                    <h2 class="imobi-h3 text-[var(--imobi-title)]" style="text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">Catálogo</h2>
+                    <p class="mt-2 max-w-3xl text-sm text-[var(--imobi-text-soft)]">Filtre por praça, faixa e estágio de captação para destacar ativos com maior aderência comercial.</p>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] border border-[var(--imobi-primary-200)] bg-[var(--imobi-primary-100)] px-3 py-2 text-sm font-semibold text-[var(--imobi-primary-700)] transition-colors duration-150 hover:bg-[var(--imobi-primary-50)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                      <i data-lucide="map-pinned" class="h-4 w-4"></i>
+                      <span>São Paulo</span>
+                    </button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] px-3 py-2 text-sm font-medium text-[var(--imobi-text)] transition-colors duration-150 hover:border-[var(--imobi-border-strong)] hover:bg-[var(--imobi-surface-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                      <i data-lucide="coins" class="h-4 w-4"></i>
+                      <span>R$ 800 mil+</span>
+                    </button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] px-3 py-2 text-sm font-medium text-[var(--imobi-text)] transition-colors duration-150 hover:border-[var(--imobi-border-strong)] hover:bg-[var(--imobi-surface-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                      <i data-lucide="star" class="h-4 w-4"></i>
+                      <span>Premium</span>
+                    </button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] px-3 py-2 text-sm font-medium text-[var(--imobi-text)] transition-colors duration-150 hover:border-[var(--imobi-border-strong)] hover:bg-[var(--imobi-surface-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                      <i data-lucide="sliders-horizontal" class="h-4 w-4"></i>
+                      <span>Até 45 dias</span>
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              <section class="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.7fr)_minmax(320px,0.9fr)]">
+                <div class="space-y-6">
+                  <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                    <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                      <div class="min-w-0">
+                        <h2 class="imobi-h3 text-[var(--imobi-title)]" style="text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">Destaques</h2>
+                        <p class="mt-2 text-sm text-[var(--imobi-text-soft)]">Ativos com margem, localização e tempo de giro acima da média.</p>
+                      </div>
+                      <div class="flex items-center gap-3 text-sm text-[var(--imobi-text-soft)]">
+                        <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-2">12 premium</span>
+                        <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-2">7 exclusivos</span>
+                      </div>
+                    </div>
+
+                    <div class="mt-5 grid gap-4 lg:grid-cols-2">
+                      <a href="imoveis.html" class="group block rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-5 transition-colors duration-150 hover:border-[var(--imobi-primary-200)] hover:bg-[var(--imobi-primary-50)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                        <div class="flex items-start justify-between gap-4">
+                          <div class="min-w-0">
+                            <h3 class="imobi-h3 truncate text-[var(--imobi-title)]">Aurora Residence</h3>
+                            <p class="mt-2 text-sm text-[var(--imobi-text-soft)]">Pinheiros • 214 m² • 3 suítes</p>
+                          </div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-primary-100)] px-3 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">Premium</span>
+                        </div>
+                        <div class="mt-5 flex items-end justify-between gap-4">
+                          <div>
+                            <p class="text-sm text-[var(--imobi-text-soft)]">Preço sugerido</p>
+                            <p class="mt-1 text-2xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">R$ 2,85 mi</p>
+                          </div>
+                          <i data-lucide="arrow-up-right" class="h-5 w-5 shrink-0 text-[var(--imobi-primary-700)] transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+                        </div>
+                        <div class="mt-5 grid grid-cols-3 gap-3 border-t border-[var(--imobi-border)] pt-4 text-sm">
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Captação</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)]">Exclusiva</p>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Visitas</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">11</p>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Lead quente</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)]">4</p>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a href="imoveis.html" class="group block rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-5 transition-colors duration-150 hover:border-[var(--imobi-primary-200)] hover:bg-[var(--imobi-primary-50)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                        <div class="flex items-start justify-between gap-4">
+                          <div class="min-w-0">
+                            <h3 class="imobi-h3 truncate text-[var(--imobi-title)]">Vista Ibirapuera</h3>
+                            <p class="mt-2 text-sm text-[var(--imobi-text-soft)]">Moema • 168 m² • 2 vagas</p>
+                          </div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-1 text-xs font-semibold text-[var(--imobi-text)]">Curado</span>
+                        </div>
+                        <div class="mt-5 flex items-end justify-between gap-4">
+                          <div>
+                            <p class="text-sm text-[var(--imobi-text-soft)]">Preço sugerido</p>
+                            <p class="mt-1 text-2xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">R$ 1,98 mi</p>
+                          </div>
+                          <i data-lucide="arrow-up-right" class="h-5 w-5 shrink-0 text-[var(--imobi-primary-700)] transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+                        </div>
+                        <div class="mt-5 grid grid-cols-3 gap-3 border-t border-[var(--imobi-border)] pt-4 text-sm">
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Captação</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)]">Direta</p>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Visitas</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">9</p>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Lead quente</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)]">3</p>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a href="imoveis.html" class="group block rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-5 transition-colors duration-150 hover:border-[var(--imobi-primary-200)] hover:bg-[var(--imobi-primary-50)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                        <div class="flex items-start justify-between gap-4">
+                          <div class="min-w-0">
+                            <h3 class="imobi-h3 truncate text-[var(--imobi-title)]">Casa Pacaembu</h3>
+                            <p class="mt-2 text-sm text-[var(--imobi-text-soft)]">Pacaembu • 420 m² • jardim amplo</p>
+                          </div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-primary-100)] px-3 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">Exclusivo</span>
+                        </div>
+                        <div class="mt-5 flex items-end justify-between gap-4">
+                          <div>
+                            <p class="text-sm text-[var(--imobi-text-soft)]">Preço sugerido</p>
+                            <p class="mt-1 text-2xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">R$ 4,32 mi</p>
+                          </div>
+                          <i data-lucide="arrow-up-right" class="h-5 w-5 shrink-0 text-[var(--imobi-primary-700)] transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+                        </div>
+                        <div class="mt-5 grid grid-cols-3 gap-3 border-t border-[var(--imobi-border)] pt-4 text-sm">
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Captação</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)]">Avaliação</p>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Visitas</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">6</p>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Lead quente</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)]">2</p>
+                          </div>
+                        </div>
+                      </a>
+
+                      <a href="imoveis.html" class="group block rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-5 transition-colors duration-150 hover:border-[var(--imobi-primary-200)] hover:bg-[var(--imobi-primary-50)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-300)]">
+                        <div class="flex items-start justify-between gap-4">
+                          <div class="min-w-0">
+                            <h3 class="imobi-h3 truncate text-[var(--imobi-title)]">Vila Nova Lofts</h3>
+                            <p class="mt-2 text-sm text-[var(--imobi-text-soft)]">Vila Nova Conceição • 92 m² • locação</p>
+                          </div>
+                          <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-1 text-xs font-semibold text-[var(--imobi-text)]">Alta procura</span>
+                        </div>
+                        <div class="mt-5 flex items-end justify-between gap-4">
+                          <div>
+                            <p class="text-sm text-[var(--imobi-text-soft)]">Preço sugerido</p>
+                            <p class="mt-1 text-2xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">R$ 11,8 mil</p>
+                          </div>
+                          <i data-lucide="arrow-up-right" class="h-5 w-5 shrink-0 text-[var(--imobi-primary-700)] transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"></i>
+                        </div>
+                        <div class="mt-5 grid grid-cols-3 gap-3 border-t border-[var(--imobi-border)] pt-4 text-sm">
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Captação</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)]">Locação</p>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Visitas</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">18</p>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="truncate text-[var(--imobi-text-soft)]">Lead quente</p>
+                            <p class="mt-1 font-semibold text-[var(--imobi-title)]">5</p>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </section>
+
+                  <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                    <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                      <div class="min-w-0">
+                        <h2 class="imobi-h3 text-[var(--imobi-title)]" style="text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">Captação</h2>
+                        <p class="mt-2 text-sm text-[var(--imobi-text-soft)]">Oportunidades com maior chance de entrada no estoque nos próximos 10 dias.</p>
+                      </div>
+                      <div class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-2 text-sm text-[var(--imobi-text-soft)]">14 abertas</div>
+                    </div>
+
+                    <div class="mt-5 overflow-x-auto">
+                      <table class="min-w-full table-fixed border-separate border-spacing-y-2">
+                        <thead>
+                          <tr class="text-left text-xs uppercase tracking-[0.16em] text-[var(--imobi-text-soft)]">
+                            <th class="min-w-[180px] px-3 py-2">Imóvel</th>
+                            <th class="min-w-[110px] px-3 py-2">Cidade</th>
+                            <th class="min-w-[120px] px-3 py-2">Faixa</th>
+                            <th class="min-w-[110px] px-3 py-2">Potencial</th>
+                            <th class="min-w-[150px] px-3 py-2">Próximo passo</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                          <tr class="rounded-[var(--radius-md)] bg-[var(--imobi-panel)] text-[var(--imobi-text)]">
+                            <td class="rounded-l-[var(--radius-md)] px-3 py-3">
+                              <div class="truncate font-semibold text-[var(--imobi-title)]">Cobertura Jardins</div>
+                              <div class="mt-1 truncate text-[var(--imobi-text-soft)]">Indicação do parceiro Campana</div>
+                            </td>
+                            <td class="px-3 py-3 whitespace-nowrap">São Paulo</td>
+                            <td class="px-3 py-3 whitespace-nowrap">R$ 3 mi+</td>
+                            <td class="px-3 py-3">
+                              <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-primary-100)] px-3 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">Muito alto</span>
+                            </td>
+                            <td class="rounded-r-[var(--radius-md)] px-3 py-3 text-[var(--imobi-text-soft)]">Agendar avaliação</td>
+                          </tr>
+                          <tr class="rounded-[var(--radius-md)] bg-[var(--imobi-panel)] text-[var(--imobi-text)]">
+                            <td class="rounded-l-[var(--radius-md)] px-3 py-3">
+                              <div class="truncate font-semibold text-[var(--imobi-title)]">Apartamento Orla</div>
+                              <div class="mt-1 truncate text-[var(--imobi-text-soft)]">Proprietário aberto à exclusividade</div>
+                            </td>
+                            <td class="px-3 py-3 whitespace-nowrap">Santos</td>
+                            <td class="px-3 py-3 whitespace-nowrap">R$ 1,2 mi</td>
+                            <td class="px-3 py-3">
+                              <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-1 text-xs font-semibold text-[var(--imobi-text)]">Alto</span>
+                            </td>
+                            <td class="rounded-r-[var(--radius-md)] px-3 py-3 text-[var(--imobi-text-soft)]">Enviar proposta</td>
+                          </tr>
+                          <tr class="rounded-[var(--radius-md)] bg-[var(--imobi-panel)] text-[var(--imobi-text)]">
+                            <td class="rounded-l-[var(--radius-md)] px-3 py-3">
+                              <div class="truncate font-semibold text-[var(--imobi-title)]">Casa Alto da Boa Vista</div>
+                              <div class="mt-1 truncate text-[var(--imobi-text-soft)]">Lead vindo de ex-cliente</div>
+                            </td>
+                            <td class="px-3 py-3 whitespace-nowrap">Campinas</td>
+                            <td class="px-3 py-3 whitespace-nowrap">R$ 2,4 mi</td>
+                            <td class="px-3 py-3">
+                              <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-1 text-xs font-semibold text-[var(--imobi-text)]">Médio</span>
+                            </td>
+                            <td class="rounded-r-[var(--radius-md)] px-3 py-3 text-[var(--imobi-text-soft)]">Confirmar documentação</td>
+                          </tr>
+                          <tr class="rounded-[var(--radius-md)] bg-[var(--imobi-panel)] text-[var(--imobi-text)]">
+                            <td class="rounded-l-[var(--radius-md)] px-3 py-3">
+                              <div class="truncate font-semibold text-[var(--imobi-title)]">Conjunto Faria Lima</div>
+                              <div class="mt-1 truncate text-[var(--imobi-text-soft)]">Vacância curta com boa margem</div>
+                            </td>
+                            <td class="px-3 py-3 whitespace-nowrap">São Paulo</td>
+                            <td class="px-3 py-3 whitespace-nowrap">Locação</td>
+                            <td class="px-3 py-3">
+                              <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-primary-100)] px-3 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">Muito alto</span>
+                            </td>
+                            <td class="rounded-r-[var(--radius-md)] px-3 py-3 text-[var(--imobi-text-soft)]">Visita técnica</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+
+                <aside class="space-y-6">
+                  <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                    <h2 class="imobi-h3 text-[var(--imobi-title)]" style="text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">Portfólio</h2>
+                    <p class="mt-2 text-sm text-[var(--imobi-text-soft)]">Desempenho por praça com foco em curadoria, giro e exclusividade.</p>
+                    <div class="mt-5 space-y-4">
+                      <div>
+                        <div class="flex items-center justify-between gap-3 text-sm">
+                          <span class="truncate text-[var(--imobi-text-soft)]">São Paulo</span>
+                          <span class="font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">74%</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-[var(--imobi-surface-muted)]">
+                          <div class="h-2 rounded-full bg-[var(--imobi-primary-600)]" style="width: 74%;"></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="flex items-center justify-between gap-3 text-sm">
+                          <span class="truncate text-[var(--imobi-text-soft)]">Campinas</span>
+                          <span class="font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">58%</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-[var(--imobi-surface-muted)]">
+                          <div class="h-2 rounded-full bg-[var(--imobi-primary-600)]" style="width: 58%;"></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="flex items-center justify-between gap-3 text-sm">
+                          <span class="truncate text-[var(--imobi-text-soft)]">Litoral</span>
+                          <span class="font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">49%</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-[var(--imobi-surface-muted)]">
+                          <div class="h-2 rounded-full bg-[var(--imobi-primary-600)]" style="width: 49%;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] p-5">
+                    <h2 class="imobi-h3 text-[var(--imobi-title)]" style="text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">Desempenho</h2>
+                    <div class="mt-4 space-y-4">
+                      <div class="rounded-[var(--radius-md)] bg-[var(--imobi-panel)] p-4">
+                        <div class="text-sm text-[var(--imobi-text-soft)]">Exclusividade</div>
+                        <div class="mt-2 text-2xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">63%</div>
+                        <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">Acima da média da carteira regional.</div>
+                      </div>
+                      <div class="rounded-[var(--radius-md)] bg-[var(--imobi-panel)] p-4">
+                        <div class="text-sm text-[var(--imobi-text-soft)]">Conversão visita</div>
+                        <div class="mt-2 text-2xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">18%</div>
+                        <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">Melhor índice nas unidades de ticket alto.</div>
+                      </div>
+                      <div class="rounded-[var(--radius-md)] bg-[var(--imobi-panel)] p-4">
+                        <div class="text-sm text-[var(--imobi-text-soft)]">Carteira sem giro</div>
+                        <div class="mt-2 text-2xl font-semibold text-[var(--imobi-title)] [font-variant-numeric:tabular-nums]">9 ativos</div>
+                        <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">Prioridade para revisar preço e narrativa comercial.</div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-primary-700)] p-5 text-[var(--imobi-inverse)]">
+                    <h2 class="imobi-h3 text-[var(--imobi-inverse)]" style="text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">Agenda</h2>
+                    <p class="mt-2 text-sm text-[var(--imobi-primary-100)]">Amanhã há 3 visitas de imóveis premium e 2 avaliações em andamento. Abra a agenda para montar o roteiro do dia.</p>
+                    <div class="mt-5 rounded-[var(--radius-md)] border border-[var(--imobi-primary-600)] bg-[var(--imobi-primary-800)] p-4">
+                      <div class="flex items-center justify-between gap-3">
+                        <span class="text-sm text-[var(--imobi-primary-100)]">Próxima visita</span>
+                        <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-primary-600)] px-3 py-1 text-xs font-semibold text-[var(--imobi-inverse)]">10h15</span>
+                      </div>
+                      <div class="mt-3 text-lg font-semibold">Aurora Residence</div>
+                      <div class="mt-1 text-sm text-[var(--imobi-primary-100)]">Cliente qualificado • Pinheiros</div>
+                    </div>
+                    <a href="agenda.html" class="mt-5 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] border border-[var(--imobi-primary-600)] bg-[var(--imobi-primary-800)] px-4 py-3 text-sm font-semibold text-[var(--imobi-inverse)] transition-colors duration-150 hover:bg-[var(--imobi-primary-900)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--imobi-primary-400)]">
+                      <span>Abrir roteiro</span>
+                      <i data-lucide="calendar-days" class="h-4 w-4"></i>
+                    </a>
+                  </section>
+                </aside>
+              </section>
+
+              <footer class="mt-6 flex flex-col gap-3 rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-surface)] px-5 py-4 text-sm text-[var(--imobi-text-soft)] md:flex-row md:items-center md:justify-between">
+                <p class="truncate">Atualizado às 09h10 com dados de captação, desempenho do portfólio e agenda comercial do time.</p>
+                <div class="flex flex-wrap items-center gap-3">
+                  <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-2">Curadoria ativa</span>
+                  <span class="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-md)] bg-[var(--imobi-surface-muted)] px-3 py-2">Rotina de visitas pronta</span>
+                </div>
+              </footer>
+            </main>
+          </div>
+        </div>
+      </div>
+    </main>
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

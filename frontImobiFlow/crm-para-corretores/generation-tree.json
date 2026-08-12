@@ -1,0 +1,152 @@
+{
+  "root": {
+    "nodeId": "gen-project-shell",
+    "kind": "project-shell",
+    "pageIds": [
+      "page-dashboard",
+      "page-leads",
+      "page-imoveis",
+      "page-agenda",
+      "page-negociacoes"
+    ],
+    "output": "partials/project-shell.html",
+    "sharedRegions": [
+      "app frame",
+      "sidebar",
+      "topbar",
+      "background",
+      "page header shell"
+    ],
+    "privateRegions": [],
+    "mutableSlots": [
+      "activeNavItem",
+      "pageTitle",
+      "pageSubtitle",
+      "pageBody",
+      "primaryAction"
+    ],
+    "status": "generated",
+    "children": [
+      {
+        "nodeId": "gen-page-dashboard",
+        "kind": "page-leaf",
+        "pageIds": [
+          "page-dashboard"
+        ],
+        "output": "pages/dashboard.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "kpis",
+          "funil",
+          "tarefas do dia",
+          "carteira de imóveis"
+        ],
+        "mutableSlots": [
+          "activeNavItem",
+          "pageTitle",
+          "pageSubtitle",
+          "pageBody",
+          "primaryAction"
+        ],
+        "status": "generated",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-leads",
+        "kind": "page-leaf",
+        "pageIds": [
+          "page-leads"
+        ],
+        "output": "pages/leads.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "lista de leads",
+          "etapas do pipeline",
+          "filtros",
+          "resumo comercial"
+        ],
+        "mutableSlots": [
+          "activeNavItem",
+          "pageTitle",
+          "pageSubtitle",
+          "pageBody",
+          "primaryAction"
+        ],
+        "status": "generated",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-imoveis",
+        "kind": "page-leaf",
+        "pageIds": [
+          "page-imoveis"
+        ],
+        "output": "pages/imoveis.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "catálogo de imóveis",
+          "cards de destaque",
+          "status de captação",
+          "performance do portfólio"
+        ],
+        "mutableSlots": [
+          "activeNavItem",
+          "pageTitle",
+          "pageSubtitle",
+          "pageBody",
+          "primaryAction"
+        ],
+        "status": "generated",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-agenda",
+        "kind": "page-leaf",
+        "pageIds": [
+          "page-agenda"
+        ],
+        "output": "pages/agenda.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "agenda semanal",
+          "visitas confirmadas",
+          "checklist de atendimento",
+          "alertas"
+        ],
+        "mutableSlots": [
+          "activeNavItem",
+          "pageTitle",
+          "pageSubtitle",
+          "pageBody",
+          "primaryAction"
+        ],
+        "status": "generated",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-negociacoes",
+        "kind": "page-leaf",
+        "pageIds": [
+          "page-negociacoes"
+        ],
+        "output": "pages/negociacoes.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "pipeline de negociação",
+          "propostas",
+          "documentação",
+          "próximas ações"
+        ],
+        "mutableSlots": [
+          "activeNavItem",
+          "pageTitle",
+          "pageSubtitle",
+          "pageBody",
+          "primaryAction"
+        ],
+        "status": "generated",
+        "children": []
+      }
+    ]
+  }
+}

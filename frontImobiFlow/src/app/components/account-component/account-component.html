@@ -1,0 +1,50 @@
+<div class="flex flex-col items-center justify-center h-full p-4">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow border border-gray-300 p-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Minha Conta</h1>
+
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-gray-500">Email</label>
+        <div class="px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900">
+          {{ email() }}
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200 pt-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-2">Redefinir senha</h2>
+        <p class="text-sm text-gray-500 mb-4">
+          Enviamos um email com um link para criar uma nova senha.
+        </p>
+
+        @if (resetSent()) {
+          <div class="text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 mb-4">
+            Email enviado! Verifique sua caixa de entrada.
+          </div>
+        }
+
+        @if (resetError()) {
+          <div class="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-4">
+            {{ resetError() }}
+          </div>
+        }
+
+        <button
+          (click)="sendResetEmail()"
+          [disabled]="loading()"
+          class="w-full py-3 rounded-xl border border-emerald-600 text-emerald-600 font-semibold hover:bg-emerald-50 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
+        >
+          {{ loading() ? 'Enviando...' : 'Enviar email de redefinição' }}
+        </button>
+      </div>
+
+      <div class="border-t border-gray-200 pt-6">
+        <button
+          (click)="logout()"
+          class="w-full py-3 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700 transition cursor-pointer"
+        >
+          Sair da conta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

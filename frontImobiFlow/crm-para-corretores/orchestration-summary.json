@@ -1,0 +1,755 @@
+{
+  "project": {
+    "name": "CRM para Corretores",
+    "path": "c:\\GitHub\\docker-evolution-and-n8n\\frontImobiFlow\\crm-para-corretores",
+    "operation": "create",
+    "deviceType": "desktop",
+    "language": "pt-BR",
+    "dashboardMode": false,
+    "replicationMode": null,
+    "sourceUrl": null,
+    "visualSpecExcerpt": null,
+    "styleDefinitionBrief": "CRM imobiliário com visual profissional, claro e confiável, combinando neutros quentes com verde petróleo e foco em produtividade comercial.",
+    "designRead": "CRM imobiliário / corretores e coordenadores / confiança comercial / média-alta densidade / evitar estética genérica azul-tech",
+    "designDials": {
+      "layoutVariance": 2,
+      "motionIntensity": 2,
+      "visualDensity": 4
+    },
+    "styleContinuityAnchors": {
+      "colorSystem": {
+        "primaryColorRole": "verde petróleo como cor principal para CTAs, métricas prioritárias e estados selecionados",
+        "brandHuePolicy": "usar uma única família principal com neutros areia e grafite; sem cor secundária de marca",
+        "stateColors": "sucesso, alerta, erro e informação apenas para status semânticos"
+      },
+      "shapeSystem": "cartões, filtros e botões com cantos contidos; raio máximo de 14px para manter sofisticação operacional",
+      "typographySystem": "Inter para títulos e corpo, contraste claro entre números grandes, títulos médios e texto compacto de apoio",
+      "spacingSystem": "respiro consistente em blocos, cabeçalhos compactos e grids densos porém legíveis",
+      "componentLanguage": "painéis claros, tabelas refinadas, cartões de lead e indicadores com borda suave em vez de sombra pesada",
+      "surfaceAndDepth": "superfícies claras com bordas quentes e sombras discretas; camadas flutuantes reservadas para modais e menus",
+      "imageryAndIconography": "ícones lineares, sem fotos como elemento central, ênfase em dados, pipeline e cartões operacionais",
+      "interactionTone": "microinterações discretas, foco em rapidez, seleção ativa evidente e hover contido"
+    },
+    "specsConstraints": null,
+    "sharedProjectShellContract": {
+      "navigationShell": "sidebar fixa com marca, menu principal e status do usuário; topbar com busca, filtros rápidos e ação principal",
+      "primaryColorSystem": "uma única cor principal verde petróleo com escalas suaves para destaque, gráficos e seleção ativa",
+      "typographySystem": "Inter com escala enxuta: títulos fortes, subtítulos curtos e texto operacional compacto",
+      "radiusScale": "4, 8 e 14px aplicados de forma consistente em inputs, cards e botões",
+      "surfaceDepthModel": "cartões com borda clara, contraste suave e sombra muito leve em superfícies estáticas",
+      "ctaStyle": "botões principais sólidos em verde petróleo e ações secundárias com fundo neutro e borda",
+      "alignmentRules": "grid de 12 colunas, cabeçalhos alinhados, filtros e ações rápidos na mesma linha visual"
+    },
+    "generationTree": {
+      "root": {
+        "nodeId": "gen-project-shell",
+        "kind": "project-shell",
+        "pageIds": [
+          "page-dashboard",
+          "page-leads",
+          "page-imoveis",
+          "page-agenda",
+          "page-negociacoes"
+        ],
+        "output": "partials/project-shell.html",
+        "sharedRegions": [
+          "app frame",
+          "sidebar",
+          "topbar",
+          "background",
+          "page header shell"
+        ],
+        "privateRegions": [],
+        "mutableSlots": [
+          "activeNavItem",
+          "pageTitle",
+          "pageSubtitle",
+          "pageBody",
+          "primaryAction"
+        ],
+        "status": "generated",
+        "children": [
+          {
+            "nodeId": "gen-page-dashboard",
+            "kind": "page-leaf",
+            "pageIds": [
+              "page-dashboard"
+            ],
+            "output": "pages/dashboard.html",
+            "sharedRegions": [],
+            "privateRegions": [
+              "kpis",
+              "funil",
+              "tarefas do dia",
+              "carteira de imóveis"
+            ],
+            "mutableSlots": [
+              "activeNavItem",
+              "pageTitle",
+              "pageSubtitle",
+              "pageBody",
+              "primaryAction"
+            ],
+            "status": "generated",
+            "children": []
+          },
+          {
+            "nodeId": "gen-page-leads",
+            "kind": "page-leaf",
+            "pageIds": [
+              "page-leads"
+            ],
+            "output": "pages/leads.html",
+            "sharedRegions": [],
+            "privateRegions": [
+              "lista de leads",
+              "etapas do pipeline",
+              "filtros",
+              "resumo comercial"
+            ],
+            "mutableSlots": [
+              "activeNavItem",
+              "pageTitle",
+              "pageSubtitle",
+              "pageBody",
+              "primaryAction"
+            ],
+            "status": "generated",
+            "children": []
+          },
+          {
+            "nodeId": "gen-page-imoveis",
+            "kind": "page-leaf",
+            "pageIds": [
+              "page-imoveis"
+            ],
+            "output": "pages/imoveis.html",
+            "sharedRegions": [],
+            "privateRegions": [
+              "catálogo de imóveis",
+              "cards de destaque",
+              "status de captação",
+              "performance do portfólio"
+            ],
+            "mutableSlots": [
+              "activeNavItem",
+              "pageTitle",
+              "pageSubtitle",
+              "pageBody",
+              "primaryAction"
+            ],
+            "status": "generated",
+            "children": []
+          },
+          {
+            "nodeId": "gen-page-agenda",
+            "kind": "page-leaf",
+            "pageIds": [
+              "page-agenda"
+            ],
+            "output": "pages/agenda.html",
+            "sharedRegions": [],
+            "privateRegions": [
+              "agenda semanal",
+              "visitas confirmadas",
+              "checklist de atendimento",
+              "alertas"
+            ],
+            "mutableSlots": [
+              "activeNavItem",
+              "pageTitle",
+              "pageSubtitle",
+              "pageBody",
+              "primaryAction"
+            ],
+            "status": "generated",
+            "children": []
+          },
+          {
+            "nodeId": "gen-page-negociacoes",
+            "kind": "page-leaf",
+            "pageIds": [
+              "page-negociacoes"
+            ],
+            "output": "pages/negociacoes.html",
+            "sharedRegions": [],
+            "privateRegions": [
+              "pipeline de negociação",
+              "propostas",
+              "documentação",
+              "próximas ações"
+            ],
+            "mutableSlots": [
+              "activeNavItem",
+              "pageTitle",
+              "pageSubtitle",
+              "pageBody",
+              "primaryAction"
+            ],
+            "status": "generated",
+            "children": []
+          }
+        ]
+      }
+    }
+  },
+  "designSource": {
+    "operatingMode": "free-explore",
+    "libraryIdentity": {
+      "name": null,
+      "id": null,
+      "version": null,
+      "scope": null,
+      "path": null,
+      "versionSource": null
+    },
+    "cssFilePath": "c:\\GitHub\\docker-evolution-and-n8n\\frontImobiFlow\\crm-para-corretores\\colors_and_type.css",
+    "brandPrefix": "imobi",
+    "themeMode": "light",
+    "designDecisionSummary": "CRM imobiliário claro, operacional e sofisticado, com neutros quentes, verde petróleo como cor principal e foco em leitura rápida.",
+    "componentContractKind": "compact-json",
+    "forbiddenInventedComponents": [
+      "layout",
+      "space"
+    ],
+    "allowedComponents": [
+      "sidebar",
+      "topbar",
+      "stats-card",
+      "table",
+      "kanban",
+      "calendar",
+      "timeline",
+      "filter-chip",
+      "activity-list"
+    ],
+    "styleConstraints": {
+      "radiusMax": 14,
+      "spacingBase": 4,
+      "fontSizeBody": 15,
+      "fontSizeMin": 12,
+      "controlHeightDefault": 40,
+      "controlHeightLarge": 46
+    },
+    "productContext": {
+      "kitType": "crm-imobiliario",
+      "productType": "plataforma comercial para captação e fechamento de imóveis"
+    },
+    "actualTokenNameReference": [
+      {
+        "semanticPurpose": "Primary surface action",
+        "tokenName": "imobi-primary-600"
+      },
+      {
+        "semanticPurpose": "Primary tint",
+        "tokenName": "imobi-primary-100"
+      },
+      {
+        "semanticPurpose": "Canvas background",
+        "tokenName": "imobi-bg"
+      },
+      {
+        "semanticPurpose": "Main surface",
+        "tokenName": "imobi-surface"
+      },
+      {
+        "semanticPurpose": "Muted surface",
+        "tokenName": "imobi-surface-muted"
+      },
+      {
+        "semanticPurpose": "Border",
+        "tokenName": "imobi-border"
+      },
+      {
+        "semanticPurpose": "Text",
+        "tokenName": "imobi-text"
+      },
+      {
+        "semanticPurpose": "Soft text",
+        "tokenName": "imobi-text-soft"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "nodeId": "page-dashboard",
+      "slug": "dashboard",
+      "title": "Dashboard",
+      "htmlSrc": "pages/dashboard.html",
+      "pageIndex": 1,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "information-dense",
+      "businessScenario": "visão geral da operação do corretor com métricas, agenda e prioridades do dia",
+      "visualNorthStar": "Primeira tela de comando que passa controle comercial imediato e leitura clara das prioridades do dia.",
+      "compositionPattern": "command-center summary grid",
+      "continuityAnchors": [
+        "sidebar fixa com status ativo em verde petróleo",
+        "cabeçalho claro com ação principal à direita",
+        "cartões com borda suave e números de destaque",
+        "chips e filtros compactos com fundos neutros"
+      ],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": [
+        "sidebar",
+        "topbar",
+        "stats-card",
+        "activity-list",
+        "table"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": [
+        "densidade alta no topo",
+        "muitas métricas no mesmo bloco"
+      ],
+      "generationNodeId": "gen-page-dashboard",
+      "generationPath": [
+        "gen-project-shell",
+        "gen-page-dashboard"
+      ],
+      "inheritedFragments": [
+        "partials/project-shell.html"
+      ],
+      "privateRegions": [
+        "kpis",
+        "funil",
+        "tarefas do dia",
+        "carteira de imóveis"
+      ],
+      "mutableSlots": [
+        "activeNavItem",
+        "pageTitle",
+        "pageSubtitle",
+        "pageBody",
+        "primaryAction"
+      ]
+    },
+    {
+      "nodeId": "page-leads",
+      "slug": "leads",
+      "title": "Leads",
+      "htmlSrc": "pages/leads.html",
+      "pageIndex": 2,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "information-dense",
+      "businessScenario": "gestão de leads, qualificação comercial e acompanhamento das etapas do funil",
+      "visualNorthStar": "Tela comercial densa, porém elegante, que prioriza velocidade para triagem, contato e avanço do lead.",
+      "compositionPattern": "pipeline board with compact insight rail",
+      "continuityAnchors": [
+        "sidebar fixa com status ativo em verde petróleo",
+        "cabeçalho claro com ação principal à direita",
+        "cartões com borda suave e números de destaque",
+        "chips e filtros compactos com fundos neutros"
+      ],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": [
+        "sidebar",
+        "topbar",
+        "kanban",
+        "filter-chip",
+        "stats-card"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": [
+        "muitos cards de lead na mesma tela",
+        "filtros e pipeline podem competir visualmente"
+      ],
+      "generationNodeId": "gen-page-leads",
+      "generationPath": [
+        "gen-project-shell",
+        "gen-page-leads"
+      ],
+      "inheritedFragments": [
+        "partials/project-shell.html"
+      ],
+      "privateRegions": [
+        "lista de leads",
+        "etapas do pipeline",
+        "filtros",
+        "resumo comercial"
+      ],
+      "mutableSlots": [
+        "activeNavItem",
+        "pageTitle",
+        "pageSubtitle",
+        "pageBody",
+        "primaryAction"
+      ]
+    },
+    {
+      "nodeId": "page-imoveis",
+      "slug": "imoveis",
+      "title": "Imóveis",
+      "htmlSrc": "pages/imoveis.html",
+      "pageIndex": 3,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "information-dense",
+      "businessScenario": "catálogo de imóveis com filtros, cards de destaque e controle de captação",
+      "visualNorthStar": "Portfólio imobiliário claro e premium, com sensação de curadoria e boa escaneabilidade comercial.",
+      "compositionPattern": "catalog grid with performance side metrics",
+      "continuityAnchors": [
+        "sidebar fixa com status ativo em verde petróleo",
+        "cabeçalho claro com ação principal à direita",
+        "cartões com borda suave e números de destaque",
+        "chips e filtros compactos com fundos neutros"
+      ],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": [
+        "sidebar",
+        "topbar",
+        "table",
+        "stats-card",
+        "filter-chip"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": [
+        "mistura de catálogo e métricas",
+        "cards podem ficar pesados se sem hierarquia"
+      ],
+      "generationNodeId": "gen-page-imoveis",
+      "generationPath": [
+        "gen-project-shell",
+        "gen-page-imoveis"
+      ],
+      "inheritedFragments": [
+        "partials/project-shell.html"
+      ],
+      "privateRegions": [
+        "catálogo de imóveis",
+        "cards de destaque",
+        "status de captação",
+        "performance do portfólio"
+      ],
+      "mutableSlots": [
+        "activeNavItem",
+        "pageTitle",
+        "pageSubtitle",
+        "pageBody",
+        "primaryAction"
+      ]
+    },
+    {
+      "nodeId": "page-agenda",
+      "slug": "agenda",
+      "title": "Agenda",
+      "htmlSrc": "pages/agenda.html",
+      "pageIndex": 4,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "task-driven",
+      "businessScenario": "agenda semanal com visitas, contatos e checklist operacional de atendimento",
+      "visualNorthStar": "Agenda de visitas com leitura imediata de compromissos, deslocamentos e preparação comercial.",
+      "compositionPattern": "schedule matrix with task checklist rail",
+      "continuityAnchors": [
+        "sidebar fixa com status ativo em verde petróleo",
+        "cabeçalho claro com ação principal à direita",
+        "cartões com borda suave e números de destaque",
+        "chips e filtros compactos com fundos neutros"
+      ],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": [
+        "sidebar",
+        "topbar",
+        "calendar",
+        "timeline",
+        "activity-list"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": [
+        "agenda pode perder contraste em telas largas",
+        "muitos estados de prioridade"
+      ],
+      "generationNodeId": "gen-page-agenda",
+      "generationPath": [
+        "gen-project-shell",
+        "gen-page-agenda"
+      ],
+      "inheritedFragments": [
+        "partials/project-shell.html"
+      ],
+      "privateRegions": [
+        "agenda semanal",
+        "visitas confirmadas",
+        "checklist de atendimento",
+        "alertas"
+      ],
+      "mutableSlots": [
+        "activeNavItem",
+        "pageTitle",
+        "pageSubtitle",
+        "pageBody",
+        "primaryAction"
+      ]
+    },
+    {
+      "nodeId": "page-negociacoes",
+      "slug": "negociacoes",
+      "title": "Negociações",
+      "htmlSrc": "pages/negociacoes.html",
+      "pageIndex": 5,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "information-dense",
+      "businessScenario": "pipeline de negociações, propostas em andamento e próximas ações para fechamento",
+      "visualNorthStar": "Painel de fechamento com foco em urgência comercial, previsibilidade e organização do próximo passo.",
+      "compositionPattern": "deal pipeline with compact proposal detail stack",
+      "continuityAnchors": [
+        "sidebar fixa com status ativo em verde petróleo",
+        "cabeçalho claro com ação principal à direita",
+        "cartões com borda suave e números de destaque",
+        "chips e filtros compactos com fundos neutros"
+      ],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": [
+        "sidebar",
+        "topbar",
+        "kanban",
+        "table",
+        "timeline"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": [
+        "muitos status financeiros",
+        "hierarquia entre propostas e tarefas finais"
+      ],
+      "generationNodeId": "gen-page-negociacoes",
+      "generationPath": [
+        "gen-project-shell",
+        "gen-page-negociacoes"
+      ],
+      "inheritedFragments": [
+        "partials/project-shell.html"
+      ],
+      "privateRegions": [
+        "pipeline de negociação",
+        "propostas",
+        "documentação",
+        "próximas ações"
+      ],
+      "mutableSlots": [
+        "activeNavItem",
+        "pageTitle",
+        "pageSubtitle",
+        "pageBody",
+        "primaryAction"
+      ]
+    }
+  ],
+  "assets": [],
+  "wiringPlan": [
+    {
+      "sourceNodeId": "page-dashboard",
+      "domId": "cta-leads",
+      "targetPageId": "page-leads"
+    },
+    {
+      "sourceNodeId": "page-leads",
+      "domId": "cta-imoveis",
+      "targetPageId": "page-imoveis"
+    },
+    {
+      "sourceNodeId": "page-imoveis",
+      "domId": "cta-agenda",
+      "targetPageId": "page-agenda"
+    },
+    {
+      "sourceNodeId": "page-agenda",
+      "domId": "cta-negociacoes",
+      "targetPageId": "page-negociacoes"
+    }
+  ],
+  "hiddenInteractionPlan": [
+    {
+      "sourceNodeId": "page-dashboard",
+      "domId": "nav-leads",
+      "targetPageId": "page-leads",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-dashboard",
+      "domId": "nav-imoveis",
+      "targetPageId": "page-imoveis",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-dashboard",
+      "domId": "nav-agenda",
+      "targetPageId": "page-agenda",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-dashboard",
+      "domId": "nav-negociacoes",
+      "targetPageId": "page-negociacoes",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-leads",
+      "domId": "nav-dashboard",
+      "targetPageId": "page-dashboard",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-leads",
+      "domId": "nav-imoveis",
+      "targetPageId": "page-imoveis",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-leads",
+      "domId": "nav-agenda",
+      "targetPageId": "page-agenda",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-leads",
+      "domId": "nav-negociacoes",
+      "targetPageId": "page-negociacoes",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-imoveis",
+      "domId": "nav-dashboard",
+      "targetPageId": "page-dashboard",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-imoveis",
+      "domId": "nav-leads",
+      "targetPageId": "page-leads",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-imoveis",
+      "domId": "nav-agenda",
+      "targetPageId": "page-agenda",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-imoveis",
+      "domId": "nav-negociacoes",
+      "targetPageId": "page-negociacoes",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-agenda",
+      "domId": "nav-dashboard",
+      "targetPageId": "page-dashboard",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-agenda",
+      "domId": "nav-leads",
+      "targetPageId": "page-leads",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-agenda",
+      "domId": "nav-imoveis",
+      "targetPageId": "page-imoveis",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-agenda",
+      "domId": "nav-negociacoes",
+      "targetPageId": "page-negociacoes",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-negociacoes",
+      "domId": "nav-dashboard",
+      "targetPageId": "page-dashboard",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-negociacoes",
+      "domId": "nav-leads",
+      "targetPageId": "page-leads",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-negociacoes",
+      "domId": "nav-imoveis",
+      "targetPageId": "page-imoveis",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    },
+    {
+      "sourceNodeId": "page-negociacoes",
+      "domId": "nav-agenda",
+      "targetPageId": "page-agenda",
+      "hideEdge": true,
+      "reason": "menu lateral"
+    }
+  ]
+}

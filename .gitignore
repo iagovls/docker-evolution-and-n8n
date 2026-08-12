@@ -2,5 +2,11 @@ ec2-user-data.sh
 user-data.sh
 /Fotos Imoveis/
 /dify config/
+/dify/
 /imoveis/
+/mcp_imoveis/.venv/
 data.json
+/node_modules
+.env
+.env.*
+!.env.example

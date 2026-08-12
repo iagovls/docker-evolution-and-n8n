@@ -1,0 +1,236 @@
+{
+  "data": [
+    {
+      "id": "page-dashboard",
+      "title": "Dashboard",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1783913600000,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/dashboard.html",
+        "interactions": [
+          {
+            "domId": "cta-leads",
+            "targetPageId": "page-leads"
+          },
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-leads",
+            "targetPageId": "page-leads",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-imoveis",
+            "targetPageId": "page-imoveis",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-agenda",
+            "targetPageId": "page-agenda",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-negociacoes",
+            "targetPageId": "page-negociacoes",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-leads",
+      "title": "Leads",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1783913600001,
+      "canvasData": {
+        "x": 620,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/leads.html",
+        "interactions": [
+          {
+            "domId": "cta-imoveis",
+            "targetPageId": "page-imoveis"
+          },
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-leads",
+            "targetPageId": "page-leads",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-imoveis",
+            "targetPageId": "page-imoveis",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-agenda",
+            "targetPageId": "page-agenda",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-negociacoes",
+            "targetPageId": "page-negociacoes",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-imoveis",
+      "title": "Imóveis",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1783913600002,
+      "canvasData": {
+        "x": 1240,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/imoveis.html",
+        "interactions": [
+          {
+            "domId": "cta-agenda",
+            "targetPageId": "page-agenda"
+          },
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-leads",
+            "targetPageId": "page-leads",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-imoveis",
+            "targetPageId": "page-imoveis",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-agenda",
+            "targetPageId": "page-agenda",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-negociacoes",
+            "targetPageId": "page-negociacoes",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-agenda",
+      "title": "Agenda",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1783913600003,
+      "canvasData": {
+        "x": 1860,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/agenda.html",
+        "interactions": [
+          {
+            "domId": "cta-negociacoes",
+            "targetPageId": "page-negociacoes"
+          },
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-leads",
+            "targetPageId": "page-leads",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-imoveis",
+            "targetPageId": "page-imoveis",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-agenda",
+            "targetPageId": "page-agenda",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-negociacoes",
+            "targetPageId": "page-negociacoes",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-negociacoes",
+      "title": "Negociações",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1783913600004,
+      "canvasData": {
+        "x": 2480,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/negociacoes.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-leads",
+            "targetPageId": "page-leads",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-imoveis",
+            "targetPageId": "page-imoveis",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-agenda",
+            "targetPageId": "page-agenda",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-negociacoes",
+            "targetPageId": "page-negociacoes",
+            "hideEdge": true
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "desktop",
+    "projectName": "CRM para Corretores",
+    "designLibrary": null
+  }
+}

@@ -1,0 +1,13 @@
+package viliSystem.imobiFlow;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ImobiFlowApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ImobiFlowApplication.class, args);
+	}
+
+}

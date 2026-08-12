@@ -1,0 +1,56 @@
+<div class="min-h-screen bg-[var(--imobi-bg)] text-[var(--imobi-text)]">
+  <div class="flex min-h-screen flex-col lg:flex-row">
+    <aside class="w-full border-b border-[var(--imobi-border)] bg-[var(--imobi-surface)] px-4 py-4 lg:min-h-screen lg:w-72 lg:border-b-0 lg:border-r lg:px-5 lg:py-6">
+      <div class="flex items-center justify-between lg:block">
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--imobi-text-soft)]">ImobiFlow</div>
+          <div class="mt-2 text-2xl font-semibold text-[var(--imobi-title)]">CRM</div>
+        </div>
+        <div class="rounded-full bg-[var(--imobi-primary-100)] px-3 py-1 text-xs font-semibold text-[var(--imobi-primary-700)]">Online</div>
+      </div>
+
+      <div class="mt-6 rounded-[var(--radius-lg)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] p-4">
+        <div class="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--imobi-text-soft)]">Corretor</div>
+        <div class="mt-2 text-base font-semibold text-[var(--imobi-title)]">Fernanda Moraes</div>
+        <div class="mt-1 text-sm text-[var(--imobi-text-soft)]">28 imóveis ativos • 12 visitas esta semana</div>
+      </div>
+
+      <nav class="mt-6 space-y-2">
+        <div data-nav-key="dashboard"><!-- SLOT: nav-dashboard --></div>
+        <div data-nav-key="leads"><!-- SLOT: nav-leads --></div>
+        <div data-nav-key="imoveis"><!-- SLOT: nav-imoveis --></div>
+        <div data-nav-key="agenda"><!-- SLOT: nav-agenda --></div>
+        <div data-nav-key="negociacoes"><!-- SLOT: nav-negociacoes --></div>
+      </nav>
+
+      <div class="mt-8 rounded-[var(--radius-lg)] bg-[var(--imobi-primary-700)] p-4 text-[var(--imobi-inverse)]">
+        <div class="text-sm font-semibold">Meta do mês</div>
+        <div class="mt-2 text-3xl font-semibold">R$ 980 mil</div>
+        <div class="mt-2 text-sm text-white/80">Faltam 2 contratos para bater o objetivo comercial.</div>
+      </div>
+    </aside>
+
+    <div class="flex-1">
+      <header class="border-b border-[var(--imobi-border)] bg-[var(--imobi-surface)]">
+        <div class="flex flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between lg:px-8">
+          <div>
+            <div class="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--imobi-text-soft)]">Operação imobiliária</div>
+            <h1 class="mt-2 imobi-h2 text-[var(--imobi-title)]"><!-- SLOT: pageTitle --></h1>
+            <p class="mt-2 max-w-2xl text-sm text-[var(--imobi-text-soft)]"><!-- SLOT: pageSubtitle --></p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <label class="flex min-w-[220px] items-center gap-2 rounded-[var(--radius-md)] border border-[var(--imobi-border)] bg-[var(--imobi-panel)] px-3 py-2 text-sm text-[var(--imobi-text-soft)]">
+              <span>Buscar</span>
+              <input class="w-full bg-transparent text-[var(--imobi-text)] outline-none placeholder:text-[var(--imobi-text-soft)]" placeholder="Cliente, imóvel ou cidade" />
+            </label>
+            <!-- SLOT: primaryAction -->
+          </div>
+        </div>
+      </header>
+
+      <main class="px-4 py-5 lg:px-8 lg:py-8">
+        <!-- SLOT: pageBody -->
+      </main>
+    </div>
+  </div>
+</div>
