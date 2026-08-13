@@ -46,81 +46,6 @@ ImobiFlow/
 
 Todas as variáveis **obrigatórias** devem estar no `.env`. Valores sem fallback — se faltar, o container sobe com valor vazio e pode quebrar.
 
-```env
-# ===============================
-# PostgreSQL Local
-# ===============================
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=sua_senha_forte_aqui
-POSTGRES_DB=databasePierreAutomation
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_SSL_ENABLED=false
-POSTGRES_SSL_REJECT_UNAUTHORIZED=false
-POSTGRES_SSLMODE=disable
-
-# ===============================
-# Databases dedicados
-# ===============================
-N8N_POSTGRES_DB=n8n
-EVOLUTION_POSTGRES_DB=evolution
-EVOLUTION_DB_SCHEMA=public
-
-# ===============================
-# Redis
-# ===============================
-REDIS_PASSWORD=sua_senha_redis_aqui
-
-# ===============================
-# n8n
-# ===============================
-N8N_HOST=n8n.seu-dominio.com.br
-N8N_PORT=5678
-N8N_PROTOCOL=https
-N8N_EDITOR_BASE_URL=https://n8n.seu-dominio.com.br
-N8N_WEBHOOK_URL=https://n8n.seu-dominio.com.br/
-N8N_TIMEZONE=America/Sao_Paulo
-META_ACCESS_TOKEN=seu_token_meta_whatsapp_aqui
-
-# ===============================
-# Evolution API (WhatsApp)
-# ===============================
-EVOLUTION_PORT=8080
-EVOLUTION_SERVER_URL=https://evolution.seu-dominio.com.br/
-EVOLUTION_WEBHOOK_GLOBAL_URL=https://evolution.seu-dominio.com.br/
-EVOLUTION_LOG_LEVEL=ERROR,WARN,DEBUG,INFO
-EVOLUTION_CACHE_REDIS_PREFIX_KEY=evolution
-EVOLUTION_API_KEY=sua_api_key_evolution_aqui
-
-# ===============================
-# Supabase PostgreSQL (MCP Imóveis)
-# ===============================
-SUPABASE_POSTGRES_HOST=aws-1-sa-east-1.pooler.supabase.com
-SUPABASE_POSTGRES_USER=postgres.suauser
-SUPABASE_POSTGRES_PASSWORD=sua_senha_supabase
-SUPABASE_POSTGRES_PORT=5432
-SUPABASE_POSTGRES_DATABASE=postgres
-SUPABASE_POSTGRES_SSLMODE=require
-SUPABASE_CONNECT_TIMEOUT=10
-SUPABASE_DEFAULT_SCHEMA=public
-SUPABASE_POSTGRES_DSN=postgresql://user:senha@host:porta/db?sslmode=require
-SUPABASE_VECTOR_DATABASE_PASSWORD=sua_senha_vector_db
-
-# ===============================
-# Cloudflare Tunnel
-# ===============================
-CLOUDFLARE_TUNNEL_TOKEN=seu_tunnel_token_aqui
-CLOUDFLARE_ACCOUNT_ID=seu_account_id
-CLOUDFLARE_API_TOKEN=seu_api_token
-
-# ===============================
-# Outros
-# ===============================
-SUPABASE_ACCESS_TOKEN=sbp_...
-```
-
----
-
 ## Como rodar
 
 ### Infra completa (Docker)
@@ -216,31 +141,10 @@ Fluxo:
 
 ---
 
-## Scripts úteis
-
-```bash
-# Ver status de todos os containers
-docker compose ps
-
-# Reiniciar apenas um serviço (ex: n8n)
-docker compose restart n8n
-
-# Logs de um serviço específico
-docker compose logs -f evolution
-
-# Derrubar TUDO (cuidado!)
-docker compose down
-
-# Derrubar e apagar volumes (PERDE TODOS OS DADOS LOCAIS)
-docker compose down -v
-```
-
----
 
 ## Segurança
 
-- **NUNCA** commit o `.env` (já está no `.gitignore`)
-- Mude todas as senhas padrão do template antes de subir em produção
+
 - Cloudflare Tunnel é preferencial a portas abertas diretamente na EC2
 - PostgreSQL e Redis só são acessíveis pela rede Docker bridge (`app_network`)
 
