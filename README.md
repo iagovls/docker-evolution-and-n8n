@@ -17,6 +17,15 @@ ImobiFlow/
 └── nginx.conf.prod             # Configuração de produção com SSL (Let's Encrypt)
 ```
 
+### READMEs por módulo
+
+| Módulo | Documentação detalhada |
+|---|---|
+| **Frontend (frontImobiFlow)** | [frontImobiFlow/README.md](frontImobiFlow/README.md) — Auth Hook PL/pgSQL, integrações S3, comandos, policies RLS. |
+| **Backend (imobiFlow)** | *(Em breve)* |
+| **MCP Imóveis (mcp_imoveis)** | [mcp_imoveis/README.md](mcp_imoveis/README.md) |
+| **Dify** | [dify/README.md](dify/README.md) (sub-repositório) |
+
 ### Serviços (Docker Compose)
 
 | Serviço | Imagem | Porta | Descrição |
