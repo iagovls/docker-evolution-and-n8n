@@ -37,6 +37,7 @@ It has its own `.git/`. Do NOT treat changes here as part of the root repo. See 
 ### `mcp_imoveis/` (Python MCP)
 - Uses `fastmcp` v3 — API differs from v2
 - Connects to **Supabase** PostgreSQL (not the local Postgres)
+- **Schema do banco de dados: `pierre`**
 - Python source is in `src/` (setuptools `package-dir`)
 - Build: `pip install -e .` or use Docker
 
@@ -44,6 +45,7 @@ It has its own `.git/`. Do NOT treat changes here as part of the root repo. See 
 - Services: nginx, postgres, redis, n8n, n8n-worker, evolution, mcp_imoveis, cloudflared
 - nginx routes: port 80 → n8n, port 8080 → Evolution API
 - Postgres has init script (`postgres-init`) that creates databases
+- **Schema do banco de dados: `pierre`**
 - `.env` file contains **real credentials** — never commit secrets
 - Cloudflare Tunnel provides external HTTPS access
 
