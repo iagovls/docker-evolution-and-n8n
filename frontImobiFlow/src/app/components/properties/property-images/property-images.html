@@ -1,0 +1,223 @@
+<div class="flex flex-col w-full h-full min-h-0 rounded-xl border border-gray-200 bg-white">
+  <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 border-b border-gray-100 bg-gray-50/60">
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        (click)="voltar()"
+        class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+        title="Voltar para edição"
+      >
+        <svg lucideArrowLeft [size]="20"></svg>
+      </button>
+      <div class="flex flex-col gap-0.5">
+        <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+          <svg lucideImage [size]="20" class="text-blue-600"></svg>
+          Galeria de Imagens
+        </h2>
+        <p class="text-xs text-gray-500">
+          Imóvel #{{ imovel.imv_codigo || imovel.id }} - {{ imagens().length }} imagens
+        </p>
+      </div>
+    </div>
+  </header>
+
+  @if (successMessage()) {
+    <div class="mx-4 mt-4 flex items-start gap-3 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700">
+      <svg lucideCheck [size]="18" class="shrink-0 mt-0.5"></svg>
+      <p class="text-sm">{{ successMessage() }}</p>
+    </div>
+  }
+  @if (errorMessage()) {
+    <div class="mx-4 mt-4 flex items-start gap-3 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700">
+      <svg lucideAlertTriangle [size]="18" class="shrink-0 mt-0.5"></svg>
+      <p class="text-sm">{{ errorMessage() }}</p>
+    </div>
+  }
+
+  <div class="flex-1 min-h-0 overflow-auto p-4 sm:p-6
+            [scrollbar-width:thin] [scrollbar-color:#cbd5e1_transparent]
+            [&::-webkit-scrollbar]:w-2
+            [&::-webkit-scrollbar-track]:bg-transparent
+            [&::-webkit-scrollbar-thumb]:bg-gray-300
+            [&::-webkit-scrollbar-thumb]:rounded-full
+            hover:[&::-webkit-scrollbar-thumb]:bg-gray-400"
+  >
+    <div class="max-w-6xl mx-auto space-y-6">
+      <section
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+        class="relative border-2 border-dashed rounded-2 rounded-xl p-8 text-center transition-all duration-200 cursor-pointer"
+        [ngClass]="dragging()
+          ? 'border-blue-400 bg-blue-50 scale-[1.01]'
+          : 'border-gray-300 hover:border-gray-400 bg-gray-50 hover:bg-white'"
+      >
+        <label class="block cursor-pointer">
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            hidden
+            (change)="onFileSelected($event)"
+          />
+          <div class="flex flex-col items-center gap-3 pointer-events-none select-none">
+            <div
+              class="w-16 h-16 rounded-2xl flex items-center justify-center transition-colors"
+              [ngClass]="dragging() ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-500'"
+            >
+              <svg lucideFolderUp [size]="32"></svg>
+            </div>
+            <div class="space-y-1">
+              <p class="font-semibold text-gray-800">
+                Arraste e solte as imagens aqui
+              </p>
+              <p class="text-sm text-gray-500">
+                  ou <span class="text-blue-600 font-medium hover:underline">clique para selecionar</span>
+                </p>
+              <p class="text-xs text-gray-400">
+                JPG, PNG, WEBP — múltiplos arquivos permitidos
+              </p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-2 pt-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-white border border-gray-200 text-gray-600">
+              <svg lucideUpload [size]="12"></svg>
+              Upload para o bucket S3
+            </span>
+              @if (imagemPrincipalUrl()) {
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 border border-amber-200 text-amber-700">
+                <svg lucideStar [size]="12"></svg>
+                1 imagem principal definida
+              </span>
+              }
+            </div>
+          </div>
+        </label>
+      </section>
+
+      @if (hasUploads()) {
+        <section class="space-y-2">
+          <h3 class="text-sm font-semibold text-gray-700 flex items-center gap-2">
+            <svg lucideLoader2 [size]="14" class="animate-spin text-blue-600"></svg>
+            Enviando...
+          </h3>
+          @for (entry of uploadEntries(); track entry[0]) {
+            <div class="p-3 rounded-lg border border-gray-200 bg-gray-50">
+              <div class="flex items-center justify-between text-xs text-gray-600 mb-1">
+              <span class="truncate max-w-[240px]">{{ entry[0].split('_').slice(1).join('_') || entry[0] }}</span>
+              <span class="font-medium">{{ entry[1] }}%</span>
+            </div>
+              <div class="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  class="h-full bg-blue-500 rounded-full transition-all duration-300"
+                  [style.width]="entry[1] + '%'"
+                ></div>
+              </div>
+            </div>
+          }
+        </section>
+      }
+
+      <section class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-gray-800 border-b border-gray-200 pb-2 flex-1">
+            Imagens ({{ imagens().length }})
+          </h3>
+          <button
+            type="button"
+            (click)="carregarImagens()"
+            class="text-xs text-gray-500 hover:text-gray-800 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
+          >
+            Atualizar
+          </button>
+        </div>
+
+        @if (loading()) {
+          <div class="flex items-center justify-center py-16">
+            <div class="flex flex-col items-center gap-3 text-gray-500">
+              <div class="w-10 h-10 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+              <span class="text-sm">Carregando galeria...</span>
+            </div>
+          </div>
+        } @else if (imagens().length === 0) {
+          <div class="flex flex-col items-center justify-center py-16 gap-3 text-gray-500 border border-dashed border-gray-200 rounded-xl">
+            <svg lucideImageOff [size]="48" class="text-gray-300"></svg>
+            <p class="text-sm font-medium">Nenhuma imagem cadastrada</p>
+            <p class="text-xs text-gray-400 text-center max-w-xs">
+              Envie a primeira imagem usando a área de upload acima.
+              A primeira imagem enviada será definida como principal automaticamente.
+            </p>
+          </div>
+        } @else {
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            @for (img of imagens(); track img.key) {
+              <figure
+                class="group relative aspect-square rounded-xl overflow-hidden border-2 transition-all duration-200"
+                [ngClass]="isPrincipal(img)
+                  ? 'border-amber-400 ring-2 ring-amber-200 shadow-lg shadow-amber-100'
+                  : 'border-gray-200 hover:border-gray-400 hover:shadow-md'"
+              >
+                <img
+                  [src]="img.url"
+                  [alt]="'Foto do imóvel ' + (img.key.split('/').pop() || '')"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                  (error)="onImgError($event)"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+
+                <div class="absolute top-2 left-2 right-2 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  @if (isPrincipal(img)) {
+                    <span class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold text-white bg-amber-500 shadow-sm">
+                      <svg lucideStar [size]="10" class="fill-white"></svg>
+                      PRINCIPAL
+                    </span>
+                  } @else {
+                    <span class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium text-white/90 bg-black/40">
+                      {{ (img.size / 1024).toFixed(1) }} KB
+                    </span>
+                  }
+                </div>
+
+                <div class="absolute bottom-2 left-2 right-2 flex items-center justify-between gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  @if (!isPrincipal(img)) {
+                    <button
+                      type="button"
+                      (click)="definirComoPrincipal(img)"
+                      [disabled]="saving()"
+                      class="inline-flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-medium bg-white/95 hover:bg-white text-amber-700 border border-amber-300 hover:border-amber-500 shadow-sm transition-colors disabled:opacity-60"
+                      title="Definir como imagem principal"
+                    >
+                      <svg lucideStar [size]="12"></svg>
+                      Principal
+                    </button>
+                  } @else {
+                    <span class="inline-flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-medium bg-amber-500/90 text-white border border-amber-600 shadow-sm">
+                      <svg lucideCheck [size]="12"></svg>
+                      Definida
+                    </span>
+                  }
+                  <button
+                    type="button"
+                    (click)="excluirImagem(img, $event)"
+                    class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/95 hover:bg-red-600 text-white shadow-sm border border-red-600 transition-colors ml-auto"
+                    title="Excluir imagem"
+                  >
+                    <svg lucideTrash2 [size]="14"></svg>
+                  </button>
+                </div>
+
+                @if (isPrincipal(img)) {
+                  <div class="absolute top-2 right-2 opacity-100 sm:opacity-100">
+                    <div class="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center shadow-md border-2 border-white">
+                      <svg lucideStar [size]="12" class="text-white fill-white"></svg>
+                    </div>
+                  </div>
+                }
+              </figure>
+            }
+          </div>
+        }
+      </section>
+    </div>
+  </div>
+</div>

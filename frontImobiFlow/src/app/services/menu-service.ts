@@ -5,6 +5,7 @@ import { PropertyIconComponent } from '../components/icons/property-icon-compone
 import { CalendarIconComponent } from '../components/icons/calendar-icon-component/calendar-icon-component';
 import { HandshakeIconComponent } from '../components/icons/handshake-icon-component/handshake-icon-component';
 import { filter } from 'rxjs';
+import { AccountIcon } from '../components/icons/account-icon/account-icon';
 
 @Injectable({
   providedIn: 'root',
@@ -60,6 +61,11 @@ export class MenuService {
       name: 'Negociações',
       icon: HandshakeIconComponent,
       link: '/negociacoes',
+    },
+    {
+      name: 'Perfil',
+      icon: AccountIcon,
+      link: '/perfil',
     },
   ];
 }

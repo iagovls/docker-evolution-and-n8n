@@ -1,5 +1,7 @@
-@if (authService.isAuthenticated()) {
-  <app-home class="h-screen"></app-home>
+@if (!authService.isAuthenticated()) {
+  <div class="flex h-dvh w-auto justify-center items-center">
+    <router-outlet class="flex w-auto justify-center items-center"/>
+  </div>
 } @else {
-  <router-outlet/>
+  <app-home class="h-dvh w-auto flex overflow-hidden"></app-home>
 }

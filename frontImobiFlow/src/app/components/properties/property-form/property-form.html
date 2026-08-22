@@ -1,0 +1,474 @@
+<div class="flex flex-col w-full h-full min-h-0 rounded-xl border border-gray-200 bg-white">
+  <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 border-b border-gray-100 bg-gray-50/60">
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        (click)="voltar()"
+        class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+        title="Voltar para lista"
+      >
+        <svg lucideArrowLeft [size]="20"></svg>
+      </button>
+      <div class="flex flex-col gap-0.5">
+        <div class="flex items-center gap-2">
+          <h2 class="text-lg font-semibold text-gray-900">
+            {{ isNew ? 'Novo Imóvel' : 'Editar Imóvel' }}
+          </h2>
+          @if (!isNew && imovel) {
+            <span class="text-xs font-mono text-gray-400 uppercase">#{{ imovel.imv_codigo || imovel.id }}</span>
+          }
+        </div>
+        <p class="text-xs text-gray-500">
+          {{ isNew ? 'Preencha os dados para cadastrar um novo imóvel' : 'Atualize as informações do imóvel' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+      <button
+        type="button"
+        (click)="abrirImagens()"
+        [disabled]="isNew && !imovel"
+        class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border transition-colors"
+        [ngClass]="isNew && !imovel
+          ? 'border-gray-200 text-gray-400 bg-gray-50 cursor-not-allowed'
+          : 'border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400'"
+        [title]="isNew && !imovel ? 'Salve o imóvel primeiro para gerenciar imagens' : 'Gerenciar galeria de imagens'"
+      >
+        <svg lucideImage [size]="16"></svg>
+        Galeria
+      </button>
+
+      <button
+        type="button"
+        (click)="toggleActive()"
+        class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border transition-colors"
+        [ngClass]="activeToggle()
+          ? 'border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
+          : 'border-gray-300 bg-gray-50 text-gray-600 hover:bg-gray-100'"
+        [title]="activeToggle() ? 'Imóvel ativo - clique para desativar' : 'Imóvel inativo - clique para ativar'"
+      >
+        @if (activeToggle()) {
+          <svg lucideToggleRight [size]="18"></svg>
+          <span>Ativo</span>
+        } @else {
+          <svg lucideToggleLeft [size]="18"></svg>
+          <span>Inativo</span>
+        }
+      </button>
+
+      <button
+        type="button"
+        (click)="salvar()"
+        [disabled]="saving()"
+        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 disabled:cursor-not-allowed rounded-lg transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+      >
+        @if (saving()) {
+          <div class="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
+          Salvando...
+        } @else {
+          <svg lucideSave [size]="16"></svg>
+          Salvar
+        }
+      </button>
+    </div>
+  </header>
+
+  @if (errorMessage()) {
+    <div class="mx-4 mt-4 flex items-start gap-3 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700">
+      <svg lucideAlertTriangle [size]="18" class="shrink-0 mt-0.5"></svg>
+      <p class="text-sm">{{ errorMessage() }}</p>
+    </div>
+  }
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="salvar()"
+    class="flex-1 min-h-0 overflow-auto p-6
+              [scrollbar-width:thin] [scrollbar-color:#cbd5e1_transparent]
+              [&::-webkit-scrollbar]:w-2
+              [&::-webkit-scrollbar-track]:bg-transparent
+              [&::-webkit-scrollbar-thumb]:bg-gray-300
+              [&::-webkit-scrollbar-thumb]:rounded-full
+              hover:[&::-webkit-scrollbar-thumb]:bg-gray-400"
+  >
+    <div class="max-w-5xl mx-auto space-y-8">
+      <section class="space-y-4">
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-gray-800 border-b border-gray-200 pb-2">
+          <svg lucideTag [size]="16" class="text-emerald-600"></svg>
+          Identificação
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="sm:col-span-1">
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">
+              Código <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              formControlName="imv_codigo"
+              placeholder="Ex: IMV-001"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('imv_codigo')"
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Título do anúncio</label>
+            <input
+              type="text"
+              formControlName="titulo"
+              placeholder="Ex: Apartamento 2 quartos na Vila Olímpia"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('titulo')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">
+              Tipo <span class="text-red-500">*</span>
+            </label>
+            <select
+              formControlName="tipo"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors bg-white"
+              [ngClass]="fieldClass('tipo')"
+            >
+              @for (t of tiposImovel; track t) {
+                <option [value]="t">{{ t }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">
+              Finalidade <span class="text-red-500">*</span>
+            </label>
+            <select
+              formControlName="finalidade"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors bg-white"
+              [ngClass]="fieldClass('finalidade')"
+            >
+              <option value="venda">Venda</option>
+              <option value="aluguel">Aluguel</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Fonte (URL)</label>
+            <input
+              type="url"
+              formControlName="fonte_url"
+              placeholder="https://..."
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('fonte_url')"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-gray-800 border-b border-gray-200 pb-2">
+          <svg lucideMapPin [size]="16" class="text-emerald-600"></svg>
+          Localização
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div class="sm:col-span-1">
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">UF <span class="text-red-500">*</span></label>
+            <select
+              formControlName="uf"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors bg-white"
+              [ngClass]="fieldClass('uf')"
+            >
+              @for (uf of ufLista; track uf) {
+                <option [value]="uf">{{ uf }}</option>
+              }
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Cidade <span class="text-red-500">*</span></label>
+            <input
+              type="text"
+              formControlName="cidade"
+              placeholder="São Paulo"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('cidade')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Região</label>
+            <input
+              type="text"
+              formControlName="regiao_cidade"
+              placeholder="Zona Sul"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('regiao_cidade')"
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Bairro</label>
+            <input
+              type="text"
+              formControlName="bairro"
+              placeholder="Vila Olímpia"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('bairro')"
+            />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Endereço</label>
+            <input
+              type="text"
+              formControlName="endereco"
+              placeholder="Rua, número, complemento"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('endereco')"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-gray-800 border-b border-gray-200 pb-2">
+          <svg lucideDollarSign [size]="16" class="text-emerald-600"></svg>
+          Valores
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">
+              Preço <span class="text-red-500">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500">R$</span>
+              <input
+                type="number"
+                formControlName="preco"
+                min="0"
+                step="1"
+                class="w-full pl-10 pr-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+                [ngClass]="fieldClass('preco')"
+              />
+            </div>
+          </div>
+          <div class="flex items-end">
+            <label class="inline-flex items-center gap-2 cursor-pointer select-none px-3 py-2 h-[38px] rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors">
+              <input
+                type="checkbox"
+                formControlName="preco_mensal"
+                class="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+              />
+              <span class="text-sm text-gray-700">Valor mensal</span>
+            </label>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Condomínio (R$)</label>
+            <input
+              type="number"
+              formControlName="condominio_preco"
+              min="0"
+              step="0.01"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('condominio_preco')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">IPTU (R$)</label>
+            <input
+              type="number"
+              formControlName="iptu_preco"
+              min="0"
+              step="0.01"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('iptu_preco')"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-gray-800 border-b border-gray-200 pb-2">
+          <svg lucideRuler [size]="16" class="text-emerald-600"></svg>
+          Características
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Quartos</label>
+            <input
+              type="number"
+              formControlName="quartos"
+              min="0"
+              step="1"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('quartos')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Suítes</label>
+            <input
+              type="number"
+              formControlName="suites"
+              min="0"
+              step="1"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('suites')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Banheiros</label>
+            <input
+              type="number"
+              formControlName="banheiros"
+              min="0"
+              step="1"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('banheiros')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Vagas</label>
+            <input
+              type="number"
+              formControlName="vagas_carro"
+              min="0"
+              step="1"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('vagas_carro')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Andar</label>
+            <input
+              type="number"
+              formControlName="andar"
+              step="1"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('andar')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Ano</label>
+            <input
+              type="number"
+              formControlName="ano"
+              min="0"
+              step="1"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('ano')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Área útil (m²)</label>
+            <input
+              type="number"
+              formControlName="area_util_m2"
+              min="0"
+              step="0.01"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('area_util_m2')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Área total (m²)</label>
+            <input
+              type="number"
+              formControlName="area_total_m2"
+              min="0"
+              step="0.01"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors"
+              [ngClass]="fieldClass('area_total_m2')"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5">Mobiliado</label>
+            <select
+              formControlName="mobiliado"
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors bg-white"
+              [ngClass]="fieldClass('mobiliado')"
+            >
+              <option value="">Não informado</option>
+              <option value="total">Totalmente mobiliado</option>
+              <option value="parcial">Parcialmente mobiliado</option>
+              <option value="nao">Não mobiliado</option>
+            </select>
+          </div>
+          <div class="col-span-2 sm:col-span-2 flex items-end">
+            <label class="inline-flex items-center gap-2 cursor-pointer select-none px-3 py-2 h-[38px] rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors w-full">
+              <input
+                type="checkbox"
+                formControlName="aceita_pet"
+                class="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+              />
+              <span class="text-sm text-gray-700">Aceita animais de estimação</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-gray-800 border-b border-gray-200 pb-2">
+          <svg lucidePackage [size]="16" class="text-emerald-600"></svg>
+          Detalhes adicionais
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5 flex items-center gap-1">
+              <svg lucideInfo [size]="12" class="text-gray-400"></svg>
+              Destaques
+            </label>
+            <textarea
+              formControlName="destaques"
+              rows="3"
+              placeholder="Pontos principais do imóvel, um por linha..."
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors resize-none"
+              [ngClass]="fieldClass('destaques')"
+            ></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5 flex items-center gap-1">
+              <svg lucideBuilding2 [size]="12" class="text-gray-400"></svg>
+              Comodidades
+            </label>
+            <textarea
+              formControlName="comodidades"
+              rows="3"
+              placeholder="Piscina, academia, salão de festas, segurança 24h..."
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors resize-none"
+              [ngClass]="fieldClass('comodidades')"
+            ></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5 flex items-center gap-1">
+              <svg lucideTreeDeciduous [size]="12" class="text-gray-400"></svg>
+              Proximidades
+            </label>
+            <textarea
+              formControlName="proximidades"
+              rows="3"
+              placeholder="Perto de escolas, hospitais, supermercados, metrô..."
+              class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors resize-none"
+              [ngClass]="fieldClass('proximidades')"
+            ></textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1.5 flex items-center gap-1">
+              <svg lucideAlertTriangle [size]="12" class="text-gray-400"></svg>
+              Condições / Restrições
+            </label>
+            <div class="grid grid-cols-1 gap-3">
+              <textarea
+                formControlName="condicoes"
+                rows="2"
+                placeholder="Condições de pagamento, documentação..."
+                class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors resize-none"
+                [ngClass]="fieldClass('condicoes')"
+              ></textarea>
+              <textarea
+                formControlName="restricoes"
+                rows="2"
+                placeholder="Restrições de uso, regras do condomínio..."
+                class="w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 transition-colors resize-none"
+                [ngClass]="fieldClass('restricoes')"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="h-6"></div>
+    </div>
+  </form>
+</div>

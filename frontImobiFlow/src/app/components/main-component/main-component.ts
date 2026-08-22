@@ -1,20 +1,19 @@
 import { Component, inject, Input } from '@angular/core';
 import { MenuService } from '../../services/menu-service';
+import { RouterOutlet } from '@angular/router';
+
 
 @Component({
   selector: 'app-main-component',
-  imports: [],
+  imports: [RouterOutlet],
   template: `
-    <div class="h-full w-full flex justify-between items-center bg-white  rounded-2xl shadow border border-gray-300">
-      <h1 class="">{{ activeSection }}</h1>
+    <div class="h-full md:h-full w-full min-h-0 flex flex-col bg-white rounded-xl shadow border border-gray-300 overflow-hidden">
+      <div class="flex-1 w-full min-h-0 overflow-hidden">
+        <router-outlet/>
+      </div>
     </div>
-  `,
-  styleUrl: './main-component.css',
+  `
 })
 export class MainComponent {
-  activeSection = '';
-  public menuService = inject(MenuService);
-  constructor() {
-    this.activeSection = this.menuService.activeSection();
-  }
+
 }

@@ -50,6 +50,11 @@ __screenshots__/
 .env.*
 !.env.example
 
+# Angular environments GERADOS (nunca commitar credenciais)
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
+!/src/environments/environment.example.ts
+
 # System files
 .DS_Store
 Thumbs.db

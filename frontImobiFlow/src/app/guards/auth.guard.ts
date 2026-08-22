@@ -28,6 +28,6 @@ export const publicGuard: CanActivateFn = async () => {
   if (!authService.isAuthenticated()) {
     return true;
   }
-
+  
   return router.createUrlTree(['/leads']);
 };

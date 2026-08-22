@@ -4,6 +4,7 @@ user-data.sh
 /dify config/
 /dify/
 /imoveis/
+/apagar-teste/
 /mcp_imoveis/.venv/
 data.json
 /node_modules
